@@ -68,6 +68,7 @@ const RegisterPage = () => {
             placeholder="Enter email"
             onChange={handleChange}
             required
+            autoComplete="off"
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -78,6 +79,7 @@ const RegisterPage = () => {
             placeholder="Enter name"
             onChange={handleChange}
             required
+            autoComplete="off"
           />
         </Form.Group>
         <Form.Group className="mb-3">
