@@ -6,7 +6,16 @@ import { initialCart } from "../cart/cartSlice";
 
 export const loginWithEmail = createAsyncThunk(
   "user/loginWithEmail",
-  async ({ email, password }, { rejectWithValue }) => {}
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      // 성공
+      const response = await api.post("/auth/login", { email, password });
+      return response.data;
+    } catch (error) {
+      // 실패시 생긴 에러값을 reducer에 저장
+      return rejectWithValue(error.message);
+    }
+  }
 );
 
 export const loginWithGoogle = createAsyncThunk(
@@ -14,7 +23,11 @@ export const loginWithGoogle = createAsyncThunk(
   async (token, { rejectWithValue }) => {}
 );
 
-export const logout = () => (dispatch) => {};
+export const logout = () => (dispatch) => {
+  sessionStorage.clear("token");
+  dispatch(clearUser());
+};
+
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (
@@ -34,8 +47,6 @@ export const registerUser = createAsyncThunk(
 
       return response.data.data;
     } catch (error) {
-      console.log(error);
-
       dispatch(
         showToastMessage({
           message: error.message,
@@ -49,7 +60,14 @@ export const registerUser = createAsyncThunk(
 
 export const loginWithToken = createAsyncThunk(
   "user/loginWithToken",
-  async (_, { rejectWithValue }) => {}
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/user/me");
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
 );
 
 const userSlice = createSlice({
@@ -66,6 +84,9 @@ const userSlice = createSlice({
       state.loginError = null;
       state.registrationError = null;
     },
+    clearUser: (state) => {
+      state.user = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -79,8 +100,24 @@ const userSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.registrationError = action.payload;
+      })
+      .addCase(loginWithEmail.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loginWithEmail.fulfilled, (state, action) => {
+        sessionStorage.setItem("token", action.payload.token);
+        state.loading = false;
+        state.user = action.payload.user;
+        state.loginError = null;
+      })
+      .addCase(loginWithEmail.rejected, (state, action) => {
+        state.loading = false;
+        state.loginError = action.payload;
+      })
+      .addCase(loginWithToken.fulfilled, (state, action) => {
+        state.user = action.payload.user;
       });
   },
 });
-export const { clearErrors } = userSlice.actions;
+export const { clearErrors, clearUser } = userSlice.actions;
 export default userSlice.reducer;

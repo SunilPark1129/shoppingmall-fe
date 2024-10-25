@@ -4,11 +4,12 @@ const LOCAL_BACKEND = process.env.REACT_APP_LOCAL_BACKEND;
 // const PROD_BACKEND = process.env.REACT_APP_PROD_BACKEND;
 // const BACKEND_PROXY = process.env.REACT_APP_BACKEND_PROXY;
 // console.log("proxy", BACKEND_PROXY);
+
 const api = axios.create({
   baseURL: LOCAL_BACKEND + "/api",
   headers: {
     "Content-Type": "application/json",
-    authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    authorization: "Bearer " + sessionStorage.getItem("token"),
   },
 });
 /**
@@ -16,7 +17,6 @@ const api = axios.create({
  */
 api.interceptors.request.use(
   (request) => {
-    console.log("Starting Request", request);
     request.headers.authorization = `Bearer ${sessionStorage.getItem("token")}`;
     return request;
   },
