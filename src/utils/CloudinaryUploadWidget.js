@@ -27,7 +27,8 @@ function CloudinaryUploadWidget({ uwConfig, uploadImage }) {
         setLoaded(true);
       }
 
-      // 랜더 준비가 되었다면 바로 addeventlistenr widge open을 설정해주기
+      // 위 코드가 랜더링이 되었다면 바로 widge에 addEventListener의 open을 설정해주기
+      // 이것은 upload image를 클릭할시에 한번 클릭으로 안열리는 문제를 해결한 코드 입니다
       initializeCloudinaryWidget();
     }
   }, [loaded]);
@@ -48,7 +49,7 @@ function CloudinaryUploadWidget({ uwConfig, uploadImage }) {
     function openWidge() {
       myWidget.open();
       // 클릭할때마다 listener 값을 없애주기
-      // widge을 취소하고 다시 클릭할때마다 중복되어 생성됨을 방지
+      // image upload를 취소하고 다시 widge을 클릭하여 열때마다 중복되는 것을 방지
       widget.removeEventListener("click", openWidge);
     }
   };
