@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Form, Modal, Button, Row, Col, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 import CloudinaryUploadWidget from "../../../utils/CloudinaryUploadWidget";
 import { CATEGORY, STATUS, SIZE } from "../../../constants/product.constants";
 import "../style/adminProduct.style.css";
@@ -9,6 +11,9 @@ import {
   createProduct,
   editProduct,
 } from "../../../features/product/productSlice";
+
+const cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+const uploadPreset = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 const InitialFormData = {
   name: "",
@@ -31,6 +36,12 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [stock, setStock] = useState([]);
   const dispatch = useDispatch();
   const [stockError, setStockError] = useState(false);
+
+  // Cloudinary
+  const [uwConfig] = useState({
+    cloudName,
+    uploadPreset,
+  });
 
   useEffect(() => {
     if (success) setShowDialog(false);
@@ -63,11 +74,18 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (stock.length === 0) return setStockError(true);
+
+    const totalStock = stock.reduce((total, item) => {
+      return { ...total, [item[0]]: parseInt(item[1]) };
+    }, {});
+
     //재고를 입력했는지 확인, 아니면 에러
     // 재고를 배열에서 객체로 바꿔주기
     // [['M',2]] 에서 {M:2}로
     if (mode === "new") {
       //새 상품 만들기
+      dispatch(createProduct({ ...formData, stock: totalStock }));
     } else {
       // 상품 수정하기
     }
@@ -75,22 +93,36 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const handleChange = (event) => {
     //form에 데이터 넣어주기
+    const { id, value } = event.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
   const addStock = () => {
     //재고타입 추가시 배열에 새 배열 추가
+
+    // map에 key 값을 넣어주기 위해서 Date.now()를 고유 값으로 사용
+    // 1, 2 index item은 다른 목적으로 사용되니 고유 값은 3번째로 넣음
+    setStock((prev) => [...prev, ["", "", Date.now()]]);
   };
 
   const deleteStock = (idx) => {
     //재고 삭제하기
+    const newStock = stock.filter((item, index) => index !== idx);
+    setStock(newStock);
   };
 
   const handleSizeChange = (value, index) => {
     //  재고 사이즈 변환하기
+    const newStock = [...stock];
+    newStock[index][0] = value;
+    setStock(newStock);
   };
 
   const handleStockChange = (value, index) => {
     //재고 수량 변환하기
+    const newStock = [...stock];
+    newStock[index][1] = value;
+    setStock(newStock);
   };
 
   const onHandleCategory = (event) => {
@@ -112,6 +144,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const uploadImage = (url) => {
     //이미지 업로드
+    setFormData({ ...formData, image: url });
   };
 
   return (
@@ -138,6 +171,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
               placeholder="Enter Sku"
               required
               value={formData.sku}
+              autoComplete="off"
             />
           </Form.Group>
 
@@ -149,6 +183,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
               placeholder="Name"
               required
               value={formData.name}
+              autoComplete="off"
             />
           </Form.Group>
         </Row>
@@ -176,7 +211,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           </Button>
           <div className="mt-2">
             {stock.map((item, index) => (
-              <Row key={index}>
+              <Row key={item[2]}>
                 <Col sm={4}>
                   <Form.Select
                     onChange={(event) =>
@@ -229,14 +264,18 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
         <Form.Group className="mb-3" controlId="Image" required>
           <Form.Label>Image</Form.Label>
-          <CloudinaryUploadWidget uploadImage={uploadImage} />
-
-          <img
-            id="uploadedimage"
-            src={formData.image}
-            className="upload-image mt-2"
-            alt="uploadedimage"
-          ></img>
+          <CloudinaryUploadWidget
+            uwConfig={uwConfig}
+            uploadImage={uploadImage}
+          />
+          {formData.image && (
+            <img
+              id="uploadedimage"
+              src={formData.image}
+              className="upload-image mt-2"
+              alt="uploadedimage"
+            ></img>
+          )}
         </Form.Group>
 
         <Row className="mb-3">
