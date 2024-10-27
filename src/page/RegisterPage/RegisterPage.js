@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import "./style/register.style.css";
 
 import { registerUser } from "../../features/user/userSlice";
+import Loading from "../../common/component/Loading";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const RegisterPage = () => {
   const [passwordError, setPasswordError] = useState("");
   const [policyError, setPolicyError] = useState(false);
   const { registrationError } = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.user);
 
   const register = (event) => {
     event.preventDefault();
@@ -52,6 +54,7 @@ const RegisterPage = () => {
 
   return (
     <Container className="register-area">
+      {loading && <Loading isFixed={true} />}
       {registrationError && (
         <div>
           <Alert variant="danger" className="error-message">

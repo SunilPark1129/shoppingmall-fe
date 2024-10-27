@@ -11,12 +11,15 @@ import {
   deleteProduct,
   setSelectedProduct,
 } from "../../features/product/productSlice";
+import Loading from "../../common/component/Loading";
 
 const AdminProductPage = () => {
   const navigate = useNavigate();
   const [query] = useSearchParams();
   const dispatch = useDispatch();
-  const { productList, totalPageNum } = useSelector((state) => state.product);
+  const { loading, productList, totalPageNum } = useSelector(
+    (state) => state.product
+  );
   const [showDialog, setShowDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState({
     page: query.get("page") || 1,
@@ -64,6 +67,7 @@ const AdminProductPage = () => {
 
   return (
     <div className="locate-center">
+      {loading && <Loading isFixed={true} />}
       <Container>
         <div className="mt-2">
           <SearchBox
