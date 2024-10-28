@@ -9,7 +9,7 @@ export const getProductList = createAsyncThunk(
     try {
       const response = await api.get("/product", { params: { ...query } });
 
-      if (response.status !== 200) throw new Error(response.error);
+      if (response.status !== 200) throw new Error(response.message);
 
       return response.data;
     } catch (error) {
@@ -34,6 +34,7 @@ export const createProduct = createAsyncThunk(
       );
       return response.data.data;
     } catch (error) {
+      console.log("eeeeeee", error);
       return rejectWithValue(error.message);
     }
   }

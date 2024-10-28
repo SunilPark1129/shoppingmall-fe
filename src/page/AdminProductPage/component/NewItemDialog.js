@@ -31,10 +31,10 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const { error, success, selectedProduct } = useSelector(
     (state) => state.product
   );
-  console.log(InitialFormData);
   const [formData, setFormData] = useState(
-    mode === "new" ? { ...InitialFormData } : selectedProduct
+    mode === "new" ? InitialFormData : selectedProduct
   );
+
   const [stock, setStock] = useState([]);
   const dispatch = useDispatch();
   const [stockError, setStockError] = useState(false);
@@ -46,7 +46,10 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   });
 
   useEffect(() => {
-    if (success) setShowDialog(false);
+    if (success) {
+      dispatch(getProductList());
+      handleClose();
+    }
   }, [success]);
 
   useEffect(() => {
@@ -63,15 +66,15 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
         ]);
         setStock(sizeArray);
       } else {
-        setFormData({ ...InitialFormData });
-        setStock([]);
+        // mode === new
       }
     }
   }, [showDialog]);
 
   const handleClose = () => {
     //모든걸 초기화시키고;
-    setFormData(structuredClone(InitialFormData));
+    setFormData(InitialFormData);
+    setStock([]);
     // 다이얼로그 닫아주기
     setShowDialog(false);
   };
@@ -90,17 +93,15 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     if (mode === "new") {
       //새 상품 만들기
       dispatch(createProduct({ ...formData, stock: totalStock }));
-      dispatch(getProductList());
     } else {
       // 상품 수정하기
     }
-
-    handleClose();
   };
 
   const handleChange = (event) => {
     //form에 데이터 넣어주기
     const { id, value } = event.target;
+    // setProdVal((prev) => ({ ...prev, [id]: value }));
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
@@ -137,21 +138,21 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       const newCategory = formData.category.filter(
         (item) => item !== event.target.value
       );
-      setFormData({
-        ...formData,
+      setFormData((prev) => ({
+        ...prev,
         category: [...newCategory],
-      });
+      }));
     } else {
-      setFormData({
-        ...formData,
+      setFormData((prev) => ({
+        ...prev,
         category: [...formData.category, event.target.value],
-      });
+      }));
     }
   };
 
   const uploadImage = (url) => {
     //이미지 업로드
-    setFormData({ ...formData, image: url });
+    setFormData((prev) => ({ ...prev, image: url }));
   };
 
   return (
@@ -168,11 +169,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           <Alert variant="danger">{error}</Alert>
         </div>
       )}
-      {/*
-      오류: 아이템을 추가 하고 다음 아이템을 추가할때 전에 있었던 input 값들을 가져오는 현상
-      해결: Key를 추가하여 매번 Modal을 열때마다 새로운 input임을 리액트에게 알려준다  
-      */}
-      <Form className="form-container" onSubmit={handleSubmit} key={Date.now()}>
+      <Form className="form-container" onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="sku">
             <Form.Label>Sku</Form.Label>

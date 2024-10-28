@@ -10,6 +10,7 @@ import {
   getProductList,
   deleteProduct,
   setSelectedProduct,
+  clearError,
 } from "../../features/product/productSlice";
 import Loading from "../../common/component/Loading";
 
@@ -17,9 +18,10 @@ const AdminProductPage = () => {
   const navigate = useNavigate();
   const [query] = useSearchParams();
   const dispatch = useDispatch();
-  const { loading, productList, totalPageNum } = useSelector(
+  const { loading, productList, totalPageNum, success } = useSelector(
     (state) => state.product
   );
+
   const [showDialog, setShowDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState({
     page: query.get("page") || 1,
@@ -62,7 +64,9 @@ const AdminProductPage = () => {
     // 아이템 수정다이얼로그 열어주기
   };
 
-  const handleClickNewItem = () => {
+  const handleClickNewItem = async () => {
+    // success를 초기화 해주기
+    dispatch(clearError());
     //new 모드로 설정하고
     setMode("new");
     // 다이얼로그 열어주기
