@@ -5,7 +5,15 @@ import { showToastMessage } from "../common/uiSlice";
 // 비동기 액션 생성
 export const getProductList = createAsyncThunk(
   "products/getProductList",
-  async (query, { rejectWithValue }) => {}
+  async (query, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/product");
+      if (response.status !== 200) throw new Error(response.error);
+      return response.data.data;
+    } catch (error) {
+      rejectWithValue(error.message);
+    }
+  }
 );
 
 export const getProductDetail = createAsyncThunk(
@@ -63,19 +71,32 @@ const productSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createProduct.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(createProduct.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = "";
-      state.success = true; // 상품 생성을 성공하면 다이얼로그를 닫고, 실패시 실패메시지를 다이어로그에 보여주고 닫지 않음
-    });
-    builder.addCase(createProduct.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-      state.success = false;
-    });
+    builder
+      .addCase(createProduct.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(createProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        state.success = true; // 상품 생성을 성공하면 다이얼로그를 닫고, 실패시 실패메시지를 다이어로그에 보여주고 닫지 않음
+      })
+      .addCase(createProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.success = false;
+      })
+      .addCase(getProductList.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getProductList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.productList = action.payload;
+        state.error = "";
+      })
+      .addCase(getProductList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
