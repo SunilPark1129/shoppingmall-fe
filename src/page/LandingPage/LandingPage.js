@@ -4,11 +4,12 @@ import { Row, Col, Container } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductList } from "../../features/product/productSlice";
+import Loading from "../../common/component/Loading";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.product.productList);
+  const { loading, productList } = useSelector((state) => state.product);
   const [query] = useSearchParams();
   const name = query.get("name");
   useEffect(() => {
@@ -18,6 +19,16 @@ const LandingPage = () => {
       })
     );
   }, [query]);
+
+  if (loading)
+    return (
+      <div
+        class="position-relative m-auto"
+        style={{ maxWidth: "1320px", height: "20rem" }}
+      >
+        <Loading isFixed={true} isDark={false} />
+      </div>
+    );
 
   return (
     <Container>

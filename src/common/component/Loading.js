@@ -5,8 +5,13 @@ import React from "react";
 
 // isFixed -> false
 // relative 안에 특정 부분만 채우고 싶다면
-function Loading({ isFixed }) {
-  const styles = { position: isFixed ? "fixed" : "absolute" };
+function Loading({ isFixed, isDark }) {
+  const styles = isFixed ? { position: "fixed" } : { position: "absolute" };
+
+  const stylesBg = isDark
+    ? { ...styles, backgroundColor: "rgba(0, 0, 0, 0.358)" }
+    : { ...styles };
+
   return (
     <>
       <div className="loading-bar" style={styles}>
@@ -14,7 +19,7 @@ function Loading({ isFixed }) {
         <div className="loading-bar__line"></div>
         <div className="loading-bar__line"></div>
       </div>
-      <div className="loading-bg" style={styles}></div>
+      <div className="loading-bg" style={stylesBg}></div>
     </>
   );
 }

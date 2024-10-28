@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <>
       <Container className="login-area">
-        {loading && <Loading isFixed={true} />}
+        {loading && <Loading isFixed={true} isDark={true} />}
         {loginError && (
           <div className="error-message">
             <Alert variant="danger">{loginError}</Alert>

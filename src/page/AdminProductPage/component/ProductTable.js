@@ -2,6 +2,8 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import { currencyFormat } from "../../../utils/number";
+import { useSelector } from "react-redux";
+import Loading from "../../../common/component/Loading";
 
 const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
   return (

@@ -70,7 +70,7 @@ const AdminProductPage = () => {
 
   return (
     <div className="locate-center">
-      {loading && <Loading isFixed={true} />}
+      {loading && <Loading isFixed={true} isDark={true} />}
       <Container>
         <div className="mt-2">
           <SearchBox
