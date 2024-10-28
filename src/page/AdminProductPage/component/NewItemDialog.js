@@ -10,6 +10,7 @@ import {
   clearError,
   createProduct,
   editProduct,
+  getProductList,
 } from "../../../features/product/productSlice";
 
 const cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
@@ -88,6 +89,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     if (mode === "new") {
       //새 상품 만들기
       dispatch(createProduct({ ...formData, stock: totalStock }));
+      dispatch(getProductList());
     } else {
       // 상품 수정하기
     }
