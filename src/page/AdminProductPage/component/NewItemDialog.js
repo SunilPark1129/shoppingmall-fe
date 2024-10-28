@@ -31,6 +31,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const { error, success, selectedProduct } = useSelector(
     (state) => state.product
   );
+  console.log(InitialFormData);
   const [formData, setFormData] = useState(
     mode === "new" ? { ...InitialFormData } : selectedProduct
   );
@@ -70,12 +71,12 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const handleClose = () => {
     //모든걸 초기화시키고;
-    setFormData(InitialFormData);
+    setFormData(structuredClone(InitialFormData));
     // 다이얼로그 닫아주기
     setShowDialog(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (stock.length === 0) return setStockError(true);
 
@@ -93,6 +94,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     } else {
       // 상품 수정하기
     }
+
+    handleClose();
   };
 
   const handleChange = (event) => {
@@ -165,7 +168,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           <Alert variant="danger">{error}</Alert>
         </div>
       )}
-      <Form className="form-container" onSubmit={handleSubmit}>
+      {/*
+      오류: 아이템을 추가 하고 다음 아이템을 추가할때 전에 있었던 input 값들을 가져오는 현상
+      해결: Key를 추가하여 매번 Modal을 열때마다 새로운 input임을 리액트에게 알려준다  
+      */}
+      <Form className="form-container" onSubmit={handleSubmit} key={Date.now()}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="sku">
             <Form.Label>Sku</Form.Label>
