@@ -27,7 +27,7 @@ const InitialFormData = {
   price: 0,
 };
 
-const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
+const NewItemDialog = ({ mode, showDialog, setShowDialog, page }) => {
   const { error, success, selectedProduct } = useSelector(
     (state) => state.product
   );
@@ -47,7 +47,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   useEffect(() => {
     if (success) {
-      dispatch(getProductList());
+      // 성공적으로 요청이 끝나면 새로운 값으로 현재 페이지 재요청
+      dispatch(getProductList({ page }));
       handleClose();
     }
   }, [success]);
@@ -95,6 +96,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       dispatch(createProduct({ ...formData, stock: totalStock }));
     } else {
       // 상품 수정하기
+      dispatch(
+        editProduct({ ...formData, stock: totalStock, id: selectedProduct._id })
+      );
     }
   };
 

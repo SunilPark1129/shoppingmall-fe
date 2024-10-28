@@ -60,8 +60,13 @@ const AdminProductPage = () => {
   };
 
   const openEditForm = (product) => {
+    // success를 초기화 해주기
+    dispatch(clearError());
     //edit모드로 설정하고
+    setMode("edit");
     // 아이템 수정다이얼로그 열어주기
+    dispatch(setSelectedProduct(product));
+    setShowDialog(true);
   };
 
   const handleClickNewItem = async () => {
@@ -127,6 +132,7 @@ const AdminProductPage = () => {
         mode={mode}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
+        page={searchQuery.page}
       />
     </div>
   );
