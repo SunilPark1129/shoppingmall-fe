@@ -91,6 +91,7 @@ body {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  background-color: transparent;
 }
 
 .card__img {
@@ -107,6 +108,7 @@ body {
 }
 
 .card__info {
+  background-color: #fff;
 }
 
 .choice {
