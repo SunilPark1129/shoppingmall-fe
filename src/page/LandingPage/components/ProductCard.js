@@ -9,9 +9,13 @@ const ProductCard = ({ item }) => {
   };
   return (
     <div className="card" onClick={() => showProduct(item._id)}>
-      <img src={item?.image} alt={item?.image} />
-      <div>{item?.name}</div>
-      <div>$ {currencyFormat(item?.price)}</div>
+      <div className="card__img">
+        <img src={item?.image} alt={item?.image} />
+      </div>
+      <div className="card__info">
+        <div>{item?.name}</div>
+        <div>$ {currencyFormat(item?.price)}</div>
+      </div>
     </div>
   );
 };

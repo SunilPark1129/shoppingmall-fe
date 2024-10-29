@@ -54,7 +54,7 @@ const LandingPage = () => {
 
   return (
     <Container>
-      <Row>
+      <Row className="pt-lg-5 pb-lg-5">
         {productList.length > 0 ? (
           productList.map((item) => (
             <Col md={3} sm={12} key={item._id}>
