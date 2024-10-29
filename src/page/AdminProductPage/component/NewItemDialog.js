@@ -27,7 +27,7 @@ const InitialFormData = {
   price: 0,
 };
 
-const NewItemDialog = ({ mode, showDialog, setShowDialog, page }) => {
+const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
   const { error, success, selectedProduct } = useSelector(
     (state) => state.product
   );
@@ -47,8 +47,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page }) => {
 
   useEffect(() => {
     if (success) {
-      // 성공적으로 요청이 끝나면 새로운 값으로 현재 페이지 재요청
-      dispatch(getProductList({ page }));
+      // 성공적으로 요청이 끝나면 새로운 값으로 데이터를 재요청
+      dispatch(getProductList({ page, name }));
       handleClose();
     }
   }, [success]);
@@ -105,7 +105,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page }) => {
   const handleChange = (event) => {
     //form에 데이터 넣어주기
     const { id, value } = event.target;
-    // setProdVal((prev) => ({ ...prev, [id]: value }));
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 

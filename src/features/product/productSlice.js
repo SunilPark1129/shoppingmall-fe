@@ -41,7 +41,24 @@ export const createProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
-  async (id, { dispatch, rejectWithValue }) => {}
+  async ({ id, page, name, refetch }, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await api.delete(`/product/${id}`);
+      if (response.status !== 200) throw new Error(response.message);
+      dispatch(
+        showToastMessage({ message: "상품 삭제 완료", status: "success" })
+      );
+      // refetch: true => getProductList를 재요청한다
+      // refetch: false 일때는 query로 대신 productList를 요청함
+      // 여러번 요청되는것을 방지
+      if (refetch) {
+        dispatch(getProductList({ page, name }));
+      }
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
 );
 
 export const editProduct = createAsyncThunk(

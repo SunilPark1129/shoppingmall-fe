@@ -18,7 +18,7 @@ const AdminProductPage = () => {
   const navigate = useNavigate();
   const [query] = useSearchParams();
   const dispatch = useDispatch();
-  const { loading, productList, totalPageNum, success } = useSelector(
+  const { loading, productList, totalPageNum } = useSelector(
     (state) => state.product
   );
 
@@ -55,12 +55,24 @@ const AdminProductPage = () => {
     navigate("?" + query);
   }, [searchQuery]);
 
-  const deleteItem = (id) => {
-    //아이템 삭제하가ㅣ
+  const deleteItem = async (id) => {
+    //아이템 삭제하기
+
+    let { page, name } = searchQuery;
+
+    // 만약 현재 페이지에 더이상 아이템이 없다면 전 페이지로 이동
+    if (totalPageNum > 1 && productList.length === 1) {
+      page = page - 1;
+      await dispatch(deleteProduct({ id, page }));
+      setSearchQuery({ ...searchQuery, page });
+    } else {
+      // refetch = 강제로 새로운 product 아이템들을 서버에서 가져옴
+      dispatch(deleteProduct({ id, page, name, refetch: true }));
+    }
   };
 
   const openEditForm = (product) => {
-    // success를 초기화 해주기
+    // Modal을 열기 전에 success를 초기화 해주기
     dispatch(clearError());
     //edit모드로 설정하고
     setMode("edit");
@@ -70,7 +82,7 @@ const AdminProductPage = () => {
   };
 
   const handleClickNewItem = async () => {
-    // success를 초기화 해주기
+    // Modal을 열기 전에 success를 초기화 해주기
     dispatch(clearError());
     //new 모드로 설정하고
     setMode("new");
@@ -133,6 +145,7 @@ const AdminProductPage = () => {
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         page={searchQuery.page}
+        name={searchQuery.name}
       />
     </div>
   );
