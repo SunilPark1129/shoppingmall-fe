@@ -14,8 +14,6 @@ import { logout } from "../../features/user/userSlice";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
-  const [query] = useSearchParams();
-  const page = query.get("page");
 
   const { cartItemCount } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
@@ -37,7 +35,7 @@ const Navbar = ({ user }) => {
       if (event.target.value === "") {
         return navigate("/");
       }
-      navigate(`?page=${page}&name=${event.target.value}`);
+      navigate(`?page=1&name=${event.target.value}`);
     }
   };
   const handleLogout = () => {

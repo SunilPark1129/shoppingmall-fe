@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
+const SearchBox = ({ placeholder, field }) => {
+  const navigate = useNavigate();
   const [query] = useSearchParams();
   const [keyword, setKeyword] = useState(query.get(field) || "");
 
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
-      setSearchQuery({ ...searchQuery, page: 1, [field]: event.target.value });
+      if (event.target.value === "") {
+        navigate("/page=1");
+      }
+      navigate(`?page=1&name=${event.target.value}`);
     }
   };
   return (

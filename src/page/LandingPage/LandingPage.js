@@ -16,30 +16,17 @@ const LandingPage = () => {
   );
   const [query] = useSearchParams();
   const name = query.get("name");
-  const page = query.get("page");
-
-  const [searchQuery, setSearchQuery] = useState({
-    page: query.get("page") || 1,
-    name: query.get("name") || "",
-  }); //검색 조건들을 저장하는 객체
+  const page = query.get("page") || 1;
 
   useEffect(() => {
-    console.log(name);
-    dispatch(getProductList({ page, name }));
+    dispatch(getProductList({ page: page, name: name }));
   }, [query]);
-
-  useEffect(() => {
-    //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
-    if (!searchQuery.name) delete searchQuery.name;
-
-    const params = new URLSearchParams(searchQuery);
-    const query = params.toString();
-    navigate("?" + query);
-  }, [searchQuery]);
 
   const handlePageClick = ({ selected }) => {
     //  쿼리에 페이지값 바꿔주기
-    setSearchQuery({ ...searchQuery, page: selected + 1 });
+    let query = `page=${selected + 1}`;
+    if (name) query = query + `&name=${name}`;
+    navigate("?" + query);
   };
 
   if (loading)
@@ -76,7 +63,7 @@ const LandingPage = () => {
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={totalPageNum}
-        forcePage={searchQuery.page - 1}
+        forcePage={page - 1}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
         pageClassName="page-item"
