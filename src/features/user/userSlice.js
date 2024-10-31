@@ -6,10 +6,11 @@ import { initialCart } from "../cart/cartSlice";
 
 export const loginWithEmail = createAsyncThunk(
   "user/loginWithEmail",
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password }, { dispatch, rejectWithValue }) => {
     try {
       // 성공
       const response = await api.post("/auth/login", { email, password });
+      // 카트 숫자 넣을 예정
       return response.data;
     } catch (error) {
       // 실패시 생긴 에러값을 reducer에 저장
@@ -26,6 +27,7 @@ export const loginWithGoogle = createAsyncThunk(
 export const logout = () => (dispatch) => {
   sessionStorage.clear("token");
   dispatch(clearUser());
+  dispatch(initialCart());
 };
 
 export const registerUser = createAsyncThunk(
@@ -60,7 +62,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginWithToken = createAsyncThunk(
   "user/loginWithToken",
-  async (_, { rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
       const response = await api.get("/user/me");
       return response.data;

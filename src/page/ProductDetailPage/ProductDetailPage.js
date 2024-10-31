@@ -31,6 +31,7 @@ const ProductDetail = () => {
       return;
     }
     // 카트에 아이템 추가하기
+    dispatch(addToCart({ id, size }));
   };
   const selectSize = (value) => {
     if (value) setSizeError(false);
