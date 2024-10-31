@@ -256,6 +256,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
                     type="number"
                     placeholder="number of stock"
                     value={item[1]}
+                    min={0}
                     required
                   />
                 </Col>
@@ -298,6 +299,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
               onChange={handleChange}
               type="number"
               placeholder="0"
+              min={0}
             />
           </Form.Group>
 
