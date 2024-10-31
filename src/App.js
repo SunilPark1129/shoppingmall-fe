@@ -16,6 +16,7 @@ function App() {
       dispatch(loginWithToken(token));
     }
   }, []);
+
   return (
     <div>
       <AppLayout>
