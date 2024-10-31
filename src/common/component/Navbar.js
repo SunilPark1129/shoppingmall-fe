@@ -7,7 +7,7 @@ import {
   faSearch,
   faShoppingBag,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/user/userSlice";
@@ -29,7 +29,8 @@ const Navbar = ({ user }) => {
     "지속가능성",
   ];
   let [width, setWidth] = useState(0);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
       if (event.target.value === "") {
@@ -94,7 +95,12 @@ const Navbar = ({ user }) => {
                 )}
               </div>
             ) : (
-              <div onClick={() => navigate("/login")} className="nav-icon">
+              <div
+                onClick={() =>
+                  navigate("/login", { state: { from: location } })
+                }
+                className="nav-icon"
+              >
                 <FontAwesomeIcon icon={faUser} />
                 {!isMobile && <span style={{ cursor: "pointer" }}>로그인</span>}
               </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ColorRing } from "react-loader-spinner";
@@ -17,13 +17,23 @@ const ProductDetail = () => {
   const [sizeError, setSizeError] = useState(false);
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const addItemToCart = () => {
     //사이즈를 아직 선택안했다면 에러
+    if (!size) {
+      setSizeError(true);
+      return;
+    }
     // 아직 로그인을 안한유저라면 로그인페이지로
+    if (!user) {
+      navigate("/login", { state: { from: location } });
+      return;
+    }
     // 카트에 아이템 추가하기
   };
   const selectSize = (value) => {
+    if (value) setSizeError(false);
     // 사이즈 추가하기
     setSize(value);
   };

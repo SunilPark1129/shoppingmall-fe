@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleLogin } from "@react-oauth/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -12,7 +12,12 @@ const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const Login = () => {
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
+  const location = useLocation();
+  // state을 받아오면 redirect 해줄 링크
+  const from = location.state?.from?.pathname || "/";
+
   const { user, loginError, loading } = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +27,7 @@ const Login = () => {
       dispatch(clearErrors());
     }
   }, [navigate]);
+
   const handleLoginWithEmail = (event) => {
     event.preventDefault();
     dispatch(loginWithEmail({ email, password }));
@@ -32,9 +38,12 @@ const Login = () => {
   };
 
   // 유저 값이 있다면 로그인 페이지를 스킵한다
-  if (user) {
-    navigate("/");
-  }
+  useEffect(() => {
+    if (user) {
+      navigate(from);
+    }
+  }, [user, navigate, from]);
+
   return (
     <>
       <Container className="login-area">
