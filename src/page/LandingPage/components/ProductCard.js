@@ -20,8 +20,10 @@ const ProductCard = ({ item }) => {
         )}
       </div>
       <div className="card__info">
-        <div>{item?.name}</div>
-        <div>$ {currencyFormat(item?.price)}</div>
+        <div className="card__info__name">{item?.name}</div>
+        <div>
+          $ <span>{currencyFormat(item?.price)}</span>
+        </div>
       </div>
     </div>
   );

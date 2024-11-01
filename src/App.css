@@ -156,7 +156,15 @@ body {
 }
 
 .card__info {
-  background-color: #fff;
+  padding: 0.25rem 1.5rem;
+}
+
+.card__info__name {
+  color: rgb(55, 55, 55);
+}
+
+.card__info span {
+  font-weight: bold;
 }
 
 .choice {
