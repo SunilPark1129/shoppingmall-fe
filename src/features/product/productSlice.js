@@ -88,7 +88,7 @@ const productSlice = createSlice({
   initialState: {
     productList: [],
     selectedProduct: null,
-    loading: false,
+    loading: true,
     error: "",
     totalPageNum: 1,
     success: false,
