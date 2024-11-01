@@ -264,6 +264,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
                     placeholder="number of stock"
                     value={item[1]}
                     min={0}
+                    step={0.01}
                     required
                   />
                 </Col>
