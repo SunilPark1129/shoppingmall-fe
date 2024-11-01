@@ -45,7 +45,6 @@ const Navbar = ({ user }) => {
 
   useEffect(() => {
     if (user) {
-      console.log("fetched");
       dispatch(getCartQty());
     }
   }, [user]);
