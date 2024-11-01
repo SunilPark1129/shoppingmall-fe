@@ -135,18 +135,6 @@ body {
   z-index: 3;
 }
 
-.card__info {
-  padding: 0.25rem 1.5rem;
-}
-
-.card__info__name {
-  color: rgb(55, 55, 55);
-}
-
-.card__info span {
-  font-weight: bold;
-}
-
 .choice {
   font-size: 11px;
   color: #63786a;
@@ -463,6 +451,18 @@ body {
   object-fit: contain;
 }
 
+.card__info {
+  padding: 0.25rem 1.5rem;
+}
+
+.card__info__name {
+  color: rgb(55, 55, 55);
+}
+
+.card__info span {
+  font-weight: bold;
+}
+
 @media screen and (max-width: 1400px) {
   .landing-content {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -515,8 +515,11 @@ body {
 }
 
 @media screen and (max-width: 500px) {
+  .landing-container {
+    padding: 1rem 0;
+  }
   .landing-content {
-    grid-template-columns: repeat(auto-fill, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
