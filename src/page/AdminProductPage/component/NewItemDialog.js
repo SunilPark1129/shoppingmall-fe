@@ -290,14 +290,19 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
           {formData.image.length > 0 && (
             <div className="upload-image-box">
               {formData.image.map(({ url, id }) => (
-                <img
-                  key={id}
-                  id="uploadedimage"
-                  src={url}
-                  className="upload-image mt-2"
+                <div
+                  className="upload-image-box__item"
                   alt="uploadedimage"
+                  key={id}
                   onClick={() => deleteImgHandler(id)}
-                />
+                >
+                  <img
+                    id="uploadedimage"
+                    src={url}
+                    className="upload-image mt-2"
+                  />
+                  <div className="upload-image-box__bg">삭제</div>
+                </div>
               ))}
             </div>
           )}

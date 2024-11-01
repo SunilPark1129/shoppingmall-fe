@@ -348,8 +348,34 @@ body {
   grid-template-columns: repeat(4, 1fr);
 }
 
-.upload-image {
-  /* max-width: 10rem !important; */
+.upload-image-box__item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.upload-image-box__item:hover {
+  background-color: rgb(162, 162, 162);
+}
+
+.upload-image-box__item:hover img {
+  opacity: 0.5;
+}
+
+.upload-image-box__item img {
+  opacity: 0.8;
+  pointer-events: none;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.upload-image-box__bg {
+  position: absolute;
+  pointer-events: none;
+  font-weight: bold;
+  color: black;
 }
 
 .landing-search-box input {
