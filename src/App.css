@@ -463,6 +463,32 @@ body {
   font-weight: bold;
 }
 
+.landing-empty {
+  display: flex;
+  justify-content: center;
+  height: 400px;
+  align-items: center;
+  width: 100%;
+}
+
+.page-item.active .page-link {
+  background-color: rgb(195, 83, 83);
+  border: 1px solid rgb(195, 83, 83);
+}
+
+.page-link {
+  color: black;
+}
+
+.page-link:hover {
+  color: black;
+}
+
+.landing-container > ul {
+  margin: 0 !important;
+  padding: 2rem 0;
+}
+
 @media screen and (max-width: 1400px) {
   .landing-content {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductList } from "../../features/product/productSlice";
 import Loading from "../../common/component/Loading";
 import ReactPaginate from "react-paginate";
+import LandingEmpty from "./components/LandingEmpty";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -42,25 +43,17 @@ const LandingPage = () => {
   return (
     <div className="landing-container">
       <div className="landing-content">
-        {productList.length > 0 ? (
-          productList.map((item) => <ProductCard item={item} key={item._id} />)
-        ) : (
-          <div className="text-align-center empty-bag">
-            {name === "" ? (
-              <h2>등록된 상품이 없습니다!</h2>
-            ) : (
-              <h2>{name}과 일치한 상품이 없습니다!`</h2>
-            )}
-          </div>
-        )}
+        {productList.length > 0 &&
+          productList.map((item) => <ProductCard item={item} key={item._id} />)}
       </div>
+      {productList.length === 0 && <LandingEmpty name={name} />}
       <ReactPaginate
-        nextLabel="next >"
+        nextLabel=">"
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={totalPageNum}
         forcePage={page - 1}
-        previousLabel="< previous"
+        previousLabel="<"
         renderOnZeroPageCount={null}
         pageClassName="page-item"
         pageLinkClassName="page-link"
