@@ -105,6 +105,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
   const handleChange = (event) => {
     //form에 데이터 넣어주기
     const { id, value } = event.target;
+    // setFormData((prev) => ({ ...prev, [id]: value }));
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
@@ -236,7 +237,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
                     </option>
                     {SIZE.map((item, index) => (
                       <option
-                        inValid={true}
+                        invalid={true}
                         value={item.toLowerCase()}
                         disabled={stock.some(
                           (size) => size[0] === item.toLowerCase()
