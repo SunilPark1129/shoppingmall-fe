@@ -136,6 +136,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
     setStock(newStock);
   };
 
+  const deleteImgHandler = (target) => {
+    const image = formData.image.filter(({ id }) => id !== target);
+    setFormData((prev) => ({ ...prev, image }));
+  };
+
   const onHandleCategory = (event) => {
     if (formData.category.includes(event.target.value)) {
       const newCategory = formData.category.filter(
@@ -155,16 +160,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
 
   const uploadImage = (url) => {
     //이미지 업로드
-    console.log("img render", formData, url);
     setFormData((prev) => ({
       ...prev,
-      image: [...prev.image, { url, id: prev.image.length }],
+      image: [...prev.image, { url, id: Date.now() }],
     }));
   };
-
-  useEffect(() => {
-    console.log(formData.image);
-  }, [formData.image]);
 
   return (
     <Modal show={showDialog} onHide={handleClose}>
@@ -287,16 +287,20 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
             uwConfig={uwConfig}
             uploadImage={uploadImage}
           />
-          {formData.image.length > 0 &&
-            formData.image.map(({ url, id }) => (
-              <img
-                key={id}
-                id="uploadedimage"
-                src={url}
-                className="upload-image mt-2"
-                alt="uploadedimage"
-              />
-            ))}
+          {formData.image.length > 0 && (
+            <div className="upload-image-box">
+              {formData.image.map(({ url, id }) => (
+                <img
+                  key={id}
+                  id="uploadedimage"
+                  src={url}
+                  className="upload-image mt-2"
+                  alt="uploadedimage"
+                  onClick={() => deleteImgHandler(id)}
+                />
+              ))}
+            </div>
+          )}
         </Form.Group>
 
         <Row className="mb-3">

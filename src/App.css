@@ -342,6 +342,16 @@ body {
   display: flex;
 }
 
+.upload-image-box {
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.upload-image {
+  /* max-width: 10rem !important; */
+}
+
 .landing-search-box input {
   background-color: #faf9f8;
 }

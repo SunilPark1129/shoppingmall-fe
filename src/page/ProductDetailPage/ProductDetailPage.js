@@ -45,7 +45,9 @@ const ProductDetail = () => {
 
   useEffect(() => {
     if (selectedProduct) {
-      const temp = selectedProduct.image.filter(({ id }) => id !== selectedImg);
+      const temp = selectedProduct.image.filter(
+        (_, idx) => idx !== selectedImg
+      );
       setImgList(temp);
     }
   }, [selectedImg, selectedProduct]);
@@ -54,9 +56,11 @@ const ProductDetail = () => {
     dispatch(getProductDetail(id));
   }, [id, dispatch]);
 
-  function imgClickHandler(id) {
-    console.log(imgList);
-    setSelectedImg(id);
+  function imgClickHandler(targetId) {
+    const findIndex = selectedProduct.image.findIndex(
+      ({ id }) => id === targetId
+    );
+    setSelectedImg(findIndex);
   }
 
   if (loading || !selectedProduct)
