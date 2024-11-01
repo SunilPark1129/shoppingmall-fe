@@ -150,7 +150,6 @@ body {
 }
 
 .product-detail-card__img-lists img:hover {
-  border: 1px solid rgb(227, 149, 149);
   transform: scale(1.1);
   z-index: 3;
 }
