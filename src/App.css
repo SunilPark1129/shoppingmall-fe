@@ -134,7 +134,7 @@ body {
   right: 0;
   top: 0;
   padding: 0.2em;
-  gap: 0.2em;
+  gap: 0.35em;
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -150,7 +150,8 @@ body {
 }
 
 .product-detail-card__img-lists img:hover {
-  transform: scale(1.1);
+  border: 1px solid rgb(233, 183, 183);
+  transform: scale(1.05);
   z-index: 3;
 }
 
