@@ -87,51 +87,54 @@ const Navbar = ({ user }) => {
         </Link>
       )}
       <div className="nav-header">
-        <div className="burger-menu hide">
-          <FontAwesomeIcon icon={faBars} onClick={() => setWidth(250)} />
-        </div>
-
-        <div>
-          <div className="display-flex">
-            {user ? (
-              <div onClick={handleLogout} className="nav-icon">
-                <FontAwesomeIcon icon={faUser} />
-                {!isMobile && (
-                  <span style={{ cursor: "pointer" }}>로그아웃</span>
-                )}
-              </div>
-            ) : (
-              <div
-                onClick={() =>
-                  navigate("/login", { state: { from: location } })
-                }
-                className="nav-icon"
-              >
-                <FontAwesomeIcon icon={faUser} />
-                {!isMobile && <span style={{ cursor: "pointer" }}>로그인</span>}
-              </div>
-            )}
-            <div onClick={() => navigate("/cart")} className="nav-icon">
-              <FontAwesomeIcon icon={faShoppingBag} />
-              {!isMobile && (
-                <span style={{ cursor: "pointer" }}>{`쇼핑백(${
-                  cartItemCount || 0
-                })`}</span>
-              )}
+        <div className="display-flex">
+          <div className="burger-menu hide">
+            <FontAwesomeIcon icon={faBars} onClick={() => setWidth(250)} />
+          </div>
+          {!isMobile && ( // admin페이지에서 같은 search-box스타일을 쓰고있음 그래서 여기서 서치박스 안보이는것 처리를 해줌
+            <div className="nav-search-box">
+              <FontAwesomeIcon icon={faSearch} />
+              <input
+                type="text"
+                placeholder="제품검색"
+                onKeyPress={onCheckEnter}
+              />
             </div>
+          )}
+          {user ? (
+            <div onClick={handleLogout} className="nav-icon">
+              <FontAwesomeIcon icon={faUser} />
+              {!isMobile && <span style={{ cursor: "pointer" }}>로그아웃</span>}
+            </div>
+          ) : (
             <div
-              onClick={() => navigate("/account/purchase")}
+              onClick={() => navigate("/login", { state: { from: location } })}
               className="nav-icon"
             >
-              <FontAwesomeIcon icon={faBox} />
-              {!isMobile && <span style={{ cursor: "pointer" }}>내 주문</span>}
+              <FontAwesomeIcon icon={faUser} />
+              {!isMobile && <span style={{ cursor: "pointer" }}>로그인</span>}
             </div>
-            {isMobile && (
-              <div className="nav-icon" onClick={() => setShowSearchBox(true)}>
-                <FontAwesomeIcon icon={faSearch} />
-              </div>
+          )}
+          <div onClick={() => navigate("/cart")} className="nav-icon">
+            <FontAwesomeIcon icon={faShoppingBag} />
+            {!isMobile && (
+              <span style={{ cursor: "pointer" }}>{`쇼핑백(${
+                cartItemCount || 0
+              })`}</span>
             )}
           </div>
+          <div
+            onClick={() => navigate("/account/purchase")}
+            className="nav-icon"
+          >
+            <FontAwesomeIcon icon={faBox} />
+            {!isMobile && <span style={{ cursor: "pointer" }}>내 주문</span>}
+          </div>
+          {isMobile && (
+            <div className="nav-icon" onClick={() => setShowSearchBox(true)}>
+              <FontAwesomeIcon icon={faSearch} />
+            </div>
+          )}
         </div>
       </div>
 
@@ -148,16 +151,6 @@ const Navbar = ({ user }) => {
             </li>
           ))}
         </ul>
-        {!isMobile && ( // admin페이지에서 같은 search-box스타일을 쓰고있음 그래서 여기서 서치박스 안보이는것 처리를 해줌
-          <div className="search-box landing-search-box ">
-            <FontAwesomeIcon icon={faSearch} />
-            <input
-              type="text"
-              placeholder="제품검색"
-              onKeyPress={onCheckEnter}
-            />
-          </div>
-        )}
       </div>
     </div>
   );
