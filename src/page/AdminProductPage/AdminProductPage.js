@@ -95,7 +95,7 @@ const AdminProductPage = () => {
 
   return (
     <div className="locate-center">
-      {loading && <Loading isFixed={true} isDark={true} />}
+      {loading && <Loading />}
       <Container>
         <div className="mt-2">
           <SearchBox placeholder="제품 이름으로 검색" field="name" />

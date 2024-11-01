@@ -54,7 +54,7 @@ const RegisterPage = () => {
 
   return (
     <Container className="register-area">
-      {loading && <Loading isFixed={true} isDark={true} />}
+      {loading && <Loading />}
       {registrationError && (
         <div>
           <Alert variant="danger" className="error-message">

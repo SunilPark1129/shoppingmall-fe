@@ -35,7 +35,7 @@ const LandingPage = () => {
         className="position-relative m-auto"
         style={{ maxWidth: "1320px", height: "20rem" }}
       >
-        <Loading isFixed={false} isDark={false} />
+        <Loading />
       </div>
     );
 
