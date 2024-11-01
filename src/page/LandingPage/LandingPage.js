@@ -40,14 +40,10 @@ const LandingPage = () => {
     );
 
   return (
-    <Container>
-      <Row className="pt-lg-5 pb-lg-5">
+    <div className="landing-container">
+      <div className="landing-content">
         {productList.length > 0 ? (
-          productList.map((item) => (
-            <Col md={3} sm={12} key={item._id}>
-              <ProductCard item={item} />
-            </Col>
-          ))
+          productList.map((item) => <ProductCard item={item} key={item._id} />)
         ) : (
           <div className="text-align-center empty-bag">
             {name === "" ? (
@@ -57,7 +53,7 @@ const LandingPage = () => {
             )}
           </div>
         )}
-      </Row>
+      </div>
       <ReactPaginate
         nextLabel="next >"
         onPageChange={handlePageClick}
@@ -79,7 +75,7 @@ const LandingPage = () => {
         activeClassName="active"
         className="display-center list-style-none"
       />
-    </Container>
+    </div>
   );
 };
 
