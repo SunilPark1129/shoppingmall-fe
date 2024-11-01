@@ -10,7 +10,14 @@ const ProductCard = ({ item }) => {
   return (
     <div className="card" onClick={() => showProduct(item._id)}>
       <div className="card__img">
-        <img src={item?.image} alt={item?.image} />
+        {item?.image.length === 1 ? (
+          <img src={item?.image[0].url} alt={item?.image} />
+        ) : (
+          <>
+            <img src={item?.image[0].url} alt={item?.image} />
+            <img src={item?.image[1].url} alt={item?.image} />
+          </>
+        )}
       </div>
       <div className="card__info">
         <div>{item?.name}</div>

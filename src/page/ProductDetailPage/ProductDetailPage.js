@@ -19,6 +19,10 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [selectedImg, setSelectedImg] = useState(0);
+  const [imgList, setImgList] = useState([]);
+  const [imgHide, setImgHide] = useState(false);
+
   const addItemToCart = () => {
     //사이즈를 아직 선택안했다면 에러
     if (!size) {
@@ -40,8 +44,20 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
+    if (selectedProduct) {
+      const temp = selectedProduct.image.filter(({ id }) => id !== selectedImg);
+      setImgList(temp);
+    }
+  }, [selectedImg, selectedProduct]);
+
+  useEffect(() => {
     dispatch(getProductDetail(id));
   }, [id, dispatch]);
+
+  function imgClickHandler(id) {
+    console.log(imgList);
+    setSelectedImg(id);
+  }
 
   if (loading || !selectedProduct)
     return (
@@ -56,7 +72,34 @@ const ProductDetail = () => {
     <Container className="product-detail-card">
       <Row>
         <Col sm={6}>
-          <img src={selectedProduct.image} className="w-100" alt="image" />
+          <div className="product-detail-card__img-box">
+            <img
+              src={selectedProduct.image[selectedImg].url}
+              className="w-100"
+              alt="image"
+            />
+            {selectedProduct.image.length > 1 && (
+              <div className="product-detail-card__img-lists">
+                <>
+                  <button
+                    className="product-detail-card__arrow"
+                    onClick={() => setImgHide((prev) => !prev)}
+                  >
+                    {imgHide ? "SHOW" : "HIDE"}
+                  </button>
+                  {!imgHide &&
+                    imgList.map(({ url, id }) => (
+                      <img
+                        src={url}
+                        key={id}
+                        alt="image"
+                        onClick={() => imgClickHandler(id)}
+                      />
+                    ))}
+                </>
+              </div>
+            )}
+          </div>
         </Col>
         <Col className="product-info-area" sm={6}>
           <div className="product-info">{selectedProduct.name}</div>

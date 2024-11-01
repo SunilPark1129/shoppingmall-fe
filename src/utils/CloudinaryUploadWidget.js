@@ -29,6 +29,8 @@ function CloudinaryUploadWidget({ uwConfig, uploadImage }) {
 
       // 위 코드가 랜더링이 되었다면 바로 widge에 addEventListener의 open을 설정해주기
       // 이것은 upload image를 클릭할시에 한번 클릭으로 안열리는 문제를 해결한 코드 입니다
+    }
+    if (loaded) {
       initializeCloudinaryWidget();
     }
   }, [loaded]);
@@ -38,6 +40,7 @@ function CloudinaryUploadWidget({ uwConfig, uploadImage }) {
       uwConfig,
       (error, result) => {
         if (!error && result && result.event === "success") {
+          console.log("rrrr", result);
           uploadImage(result.info.secure_url);
         }
       }

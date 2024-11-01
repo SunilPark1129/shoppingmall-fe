@@ -32,7 +32,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                   ))}
                 </th>
                 <th>
-                  <img src={item.image} width={100} alt="image" />
+                  <img src={item.image[0].url} width={100} alt="image" />
                 </th>
                 <th>{item.status}</th>
                 <th style={{ minWidth: "100px" }}>

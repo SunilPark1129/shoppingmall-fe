@@ -20,7 +20,7 @@ const InitialFormData = {
   name: "",
   sku: "",
   stock: {},
-  image: "",
+  image: [],
   description: "",
   category: [],
   status: "active",
@@ -155,8 +155,16 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
 
   const uploadImage = (url) => {
     //이미지 업로드
-    setFormData((prev) => ({ ...prev, image: url }));
+    console.log("img render", formData, url);
+    setFormData((prev) => ({
+      ...prev,
+      image: [...prev.image, { url, id: prev.image.length }],
+    }));
   };
+
+  useEffect(() => {
+    console.log(formData.image);
+  }, [formData.image]);
 
   return (
     <Modal show={showDialog} onHide={handleClose}>
@@ -279,14 +287,16 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
             uwConfig={uwConfig}
             uploadImage={uploadImage}
           />
-          {formData.image && (
-            <img
-              id="uploadedimage"
-              src={formData.image}
-              className="upload-image mt-2"
-              alt="uploadedimage"
-            ></img>
-          )}
+          {formData.image.length > 0 &&
+            formData.image.map(({ url, id }) => (
+              <img
+                key={id}
+                id="uploadedimage"
+                src={url}
+                className="upload-image mt-2"
+                alt="uploadedimage"
+              />
+            ))}
         </Form.Group>
 
         <Row className="mb-3">
