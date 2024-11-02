@@ -33,20 +33,19 @@ const CartProductCard = ({ item }) => {
   }
 
   return (
-    <div className="product-card-cart">
-      <Row>
-        <Col md={2} xs={12}>
-          <img src={item.productId.image[0].url} width={112} alt="product" />
-        </Col>
-        <Col md={10} xs={12}>
-          <div className="display-flex space-between">
+    <>
+      <div className="product-card-cart">
+        <div className="product-card-cart__img-box">
+          <img src={item.productId.image[0].url} alt={item.productId.name} />
+        </div>
+        <div className="product-card-cart__content">
+          <div className="product-card-cart__header">
             <h3>{item.productId.name}</h3>
-            <button className="trash-button">
-              <FontAwesomeIcon
-                icon={faTrash}
-                width={24}
-                onClick={() => deleteCart(item._id)}
-              />
+            <button
+              className="trash-button"
+              onClick={() => deleteCart(item._id)}
+            >
+              <FontAwesomeIcon icon={faTrash} width={24} />
             </button>
           </div>
 
@@ -54,7 +53,9 @@ const CartProductCard = ({ item }) => {
             <strong>$ {currencyFormat(item.productId.price)}</strong>
           </div>
           <div>Size: {item.size}</div>
-          <div>Total: $ {currencyFormat(item.productId.price * item.qty)}</div>
+          <div className="product-card-cart__total">
+            Total: $ {currencyFormat(item.productId.price * item.qty)}
+          </div>
           <div>
             Quantity:
             <Form.Select
@@ -77,15 +78,15 @@ const CartProductCard = ({ item }) => {
               <option value={10}>10</option>
             </Form.Select>
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
       {confirmOption.open && (
         <ConfirmModal
           setConfirmOption={setConfirmOption}
           confirmOption={confirmOption}
         />
       )}
-    </div>
+    </>
   );
 };
 

@@ -1,44 +1,90 @@
-.product-card-cart{
-    margin-bottom: 10px;
+.qty-dropdown {
+  max-width: 400px;
 }
-.qty-dropdown{
-    max-width:400px;
-}
-.trash-button{
-    background-color: white;
-    border: 1px solid gray;
-}
-.product-card-cart{
-    background-color: ghostwhite;
-    padding:10px;
-}
-.receipt-container{
-    border: 1px solid gray;
-    padding: 32px 24px;
-}
-.receipt-list{
-    list-style-type: none;
-    padding: 0;
-    border-bottom: 1px solid black;
+.trash-button {
+  background-color: white;
+  border: 1px solid gray;
+  width: 2rem;
+  height: 2rem;
 }
 
-.receipt-list li{
-    padding-bottom: 10px;
+.receipt-container {
+  border: 1px solid gray;
+  padding: 32px 24px;
+}
+.receipt-list {
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 1px solid black;
 }
 
-.receipt-title{
-    margin-bottom: 20px;
+.receipt-list li {
+  padding-bottom: 10px;
 }
 
-.payment-button{
-   width: 100%;
-   padding: 16px;
-   margin-bottom: 20px;
+.receipt-title {
+  margin-bottom: 20px;
 }
-.text-align-center{
-    text-align: center;
+
+.payment-button {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 20px;
 }
-.empty-bag{
-    background-color: white;
-    padding: 20px;
+.text-align-center {
+  text-align: center;
+}
+.empty-bag {
+  background-color: white;
+  padding: 20px;
+}
+
+.product-card-cart {
+  /* background-color: ghostwhite; */
+  padding: 10px;
+  display: flex;
+  gap: 1rem;
+}
+
+.product-card-cart__img-box {
+  position: relative;
+  width: 8rem;
+  aspect-ratio: 2/3;
+  flex-shrink: 0;
+}
+
+.product-card-cart__img-box img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-card-cart__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.product-card-cart__content h3 {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.product-card-cart__header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product-card-cart__total {
+  margin-top: auto;
+}
+
+@media (max-width: 575px) {
+  .product-card-cart {
+    flex-direction: column;
+  }
 }
