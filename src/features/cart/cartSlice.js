@@ -76,6 +76,24 @@ export const deleteCartItem = createAsyncThunk(
   }
 );
 
+export const deleteAllCartItem = createAsyncThunk(
+  "cart/deleteAllCartItem",
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await api.delete(`/cart/all`);
+      if (response.status !== 200) throw new Error("카트 아이템 삭제 실패");
+    } catch (error) {
+      dispatch(
+        showToastMessage({
+          message: error.message,
+          status: "error",
+        })
+      );
+      rejectWithValue(error.message);
+    }
+  }
+);
+
 export const updateQty = createAsyncThunk(
   "cart/updateQty",
   async ({ id, value }, { rejectWithValue }) => {
@@ -143,7 +161,7 @@ const cartSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(getCartQty.pending, (state, action) => {
+      .addCase(getCartQty.pending, (state) => {
         state.loading = true;
       })
       .addCase(getCartQty.fulfilled, (state, action) => {
@@ -155,10 +173,10 @@ const cartSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(deleteCartItem.pending, (state, action) => {
+      .addCase(deleteCartItem.pending, (state) => {
         state.loading = true;
       })
-      .addCase(deleteCartItem.fulfilled, (state, action) => {
+      .addCase(deleteCartItem.fulfilled, (state) => {
         state.loading = false;
         state.error = "";
       })
@@ -166,7 +184,7 @@ const cartSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(updateQty.pending, (state, action) => {
+      .addCase(updateQty.pending, (state) => {
         state.loading = true;
       })
       .addCase(updateQty.fulfilled, (state, action) => {
@@ -186,6 +204,21 @@ const cartSlice = createSlice({
         state.totalPrice = Number(currencyFormat(total));
       })
       .addCase(updateQty.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteAllCartItem.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteAllCartItem.fulfilled, (state) => {
+        state.loading = false;
+        state.error = "";
+        state.cartList = [];
+        state.selectedItem = {};
+        state.cartItemCount = 0;
+        state.totalPrice = 0;
+      })
+      .addCase(deleteAllCartItem.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

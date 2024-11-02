@@ -54,6 +54,7 @@ const PaymentPage = () => {
         }),
       })
     );
+    navigate("/");
   };
 
   const handleFormChange = (event) => {
@@ -155,6 +156,11 @@ const PaymentPage = () => {
                   <h2 className="payment-title">결제 정보</h2>
                 </div>
 
+                <PaymentForm
+                  handleInputFocus={handleInputFocus}
+                  cardValue={cardValue}
+                  handlePaymentInfoChange={handlePaymentInfoChange}
+                />
                 <Button
                   variant="dark"
                   className="payment-button pay-button"
@@ -169,11 +175,6 @@ const PaymentPage = () => {
         <Col lg={5} className="receipt-area">
           <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
         </Col>
-        <PaymentForm
-          handleInputFocus={handleInputFocus}
-          cardValue={cardValue}
-          handlePaymentInfoChange={handlePaymentInfoChange}
-        />
       </Row>
     </Container>
   );
