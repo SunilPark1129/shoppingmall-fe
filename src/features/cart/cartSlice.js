@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../utils/api";
 import { showToastMessage } from "../common/uiSlice";
+import { currencyFormat } from "../../utils/number";
 
 const initialState = {
   loading: false,
@@ -81,7 +82,6 @@ export const updateQty = createAsyncThunk(
     try {
       const response = await api.put(`/cart/updateQty/${id}`, { qty: value });
       if (response.status !== 200) throw new Error("카트 갯수 업데이트 실패");
-      console.log(response);
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.message);
@@ -133,10 +133,11 @@ const cartSlice = createSlice({
         state.error = "";
         state.cartList = action.payload;
         state.cartItemCount = action.payload.length;
-        state.totalPrice = action.payload.reduce(
+        const total = action.payload.reduce(
           (total, item) => total + item.productId.price * item.qty,
           0
         );
+        state.totalPrice = Number(currencyFormat(total));
       })
       .addCase(getCartList.rejected, (state, action) => {
         state.loading = false;
@@ -182,7 +183,7 @@ const cartSlice = createSlice({
           const { price } = state.cartList[i].productId;
           total += price * newQty;
         }
-        state.totalPrice = total;
+        state.totalPrice = Number(currencyFormat(total));
       })
       .addCase(updateQty.rejected, (state, action) => {
         state.loading = false;

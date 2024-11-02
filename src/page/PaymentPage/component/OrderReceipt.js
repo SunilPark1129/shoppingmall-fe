@@ -41,7 +41,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
           <strong>Total:</strong>
         </div>
         <div>
-          <strong>$ {currencyFormat(totalPrice)}</strong>
+          <strong>$ {totalPrice}</strong>
         </div>
       </div>
       {location.pathname.includes("/cart") && cartList.length > 0 && (
