@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { currencyFormat } from "../../../utils/number";
 
 const smWidth = "400";
-const lgWidth = "800";
+const lgWidth = "600";
 
 const ProductCard = ({ item }) => {
   const navigate = useNavigate();
