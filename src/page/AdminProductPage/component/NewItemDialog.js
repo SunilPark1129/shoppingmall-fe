@@ -250,55 +250,57 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
               Add +
             </Button>
             <div className="mt-2">
-              {stock.map((item, index) => (
-                <Row key={item[2]}>
-                  <Col sm={4}>
-                    <Form.Select
-                      onChange={(event) =>
-                        handleSizeChange(event.target.value, index)
-                      }
-                      required
-                      defaultValue={item[0] ? item[0].toLowerCase() : ""}
-                    >
-                      <option value="" disabled hidden>
-                        Please Choose...
-                      </option>
-                      {SIZE.map((item, index) => (
-                        <option
-                          value={item.toLowerCase()}
-                          disabled={stock.some(
-                            (size) => size[0] === item.toLowerCase()
-                          )}
-                          key={index}
-                        >
-                          {item}
+              {stock.map((item, index) => {
+                return (
+                  <Row key={item[0]}>
+                    <Col sm={4}>
+                      <Form.Select
+                        onChange={(event) =>
+                          handleSizeChange(event.target.value, index)
+                        }
+                        required
+                        defaultValue={item[0] ? item[0].toLowerCase() : ""}
+                      >
+                        <option value="" disabled hidden>
+                          Please Choose...
                         </option>
-                      ))}
-                    </Form.Select>
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Control
-                      onChange={(event) =>
-                        handleStockChange(event.target.value, index)
-                      }
-                      type="number"
-                      placeholder="number of stock"
-                      value={item[1]}
-                      min={0}
-                      required
-                    />
-                  </Col>
-                  <Col sm={2}>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => deleteStock(index)}
-                    >
-                      -
-                    </Button>
-                  </Col>
-                </Row>
-              ))}
+                        {SIZE.map((item, index) => (
+                          <option
+                            value={item.toLowerCase()}
+                            disabled={stock.some(
+                              (size) => size[0] === item.toLowerCase()
+                            )}
+                            key={index}
+                          >
+                            {item}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Col>
+                    <Col sm={6}>
+                      <Form.Control
+                        onChange={(event) =>
+                          handleStockChange(event.target.value, index)
+                        }
+                        type="number"
+                        placeholder="number of stock"
+                        value={item[1]}
+                        min={0}
+                        required
+                      />
+                    </Col>
+                    <Col sm={2}>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => deleteStock(index)}
+                      >
+                        -
+                      </Button>
+                    </Col>
+                  </Row>
+                );
+              })}
             </div>
           </Form.Group>
 
