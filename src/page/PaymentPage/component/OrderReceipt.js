@@ -21,7 +21,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
                 <div className="display-flex space-between">
                   <div>{name}</div>
 
-                  <div>$ {price * qty}</div>
+                  <div>$ {currencyFormat(price * qty)}</div>
                 </div>
               </li>
             );
@@ -41,7 +41,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
           <strong>Total:</strong>
         </div>
         <div>
-          <strong>$ {totalPrice}</strong>
+          <strong>$ {currencyFormat(totalPrice)}</strong>
         </div>
       </div>
       {location.pathname.includes("/cart") && cartList.length > 0 && (
