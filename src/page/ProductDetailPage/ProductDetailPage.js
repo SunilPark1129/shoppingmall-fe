@@ -9,6 +9,8 @@ import { getProductDetail } from "../../features/product/productSlice";
 import { addToCart } from "../../features/cart/cartSlice";
 import Loading from "../../common/component/Loading";
 
+const sizes = ["xs", "s", "m", "l", "xl"];
+
 const ProductDetail = () => {
   const dispatch = useDispatch();
   const { selectedProduct, loading } = useSelector((state) => state.product);
@@ -106,48 +108,67 @@ const ProductDetail = () => {
           </div>
         </Col>
         <Col className="product-info-area" sm={6}>
-          <div className="product-info">{selectedProduct.name}</div>
-          <div className="product-info">
-            $ {currencyFormat(selectedProduct.price)}
-          </div>
-          <div className="product-info">{selectedProduct.description}</div>
+          <div className="product__content">
+            <div className="product-info">
+              <h1>{selectedProduct.name}</h1>
+              <div>
+                $<span>{currencyFormat(selectedProduct.price)}</span>
+              </div>
+            </div>
+            <div className="line"></div>
+            <div className="product-info">
+              <p>{selectedProduct.description}</p>
+            </div>
+            <div className="product__size">
+              {sizeError ? (
+                <div className="product__size__text product__size__text--warning">
+                  {sizeError && "Please select a size"}
+                </div>
+              ) : (
+                <div className="product__size__text">
+                  {size ? "Selected Size" : "Select Size"}{" "}
+                  <span>{size.toUpperCase()}</span>
+                </div>
+              )}
+              <div className="product__size__box">
+                {sizes.map((item) => {
+                  const stockQty = selectedProduct.stock[item];
+                  const hasSelected = item === size;
 
-          <Dropdown
-            className="drop-down size-drop-down"
-            title={size}
-            align="start"
-            onSelect={(value) => selectSize(value)}
-          >
-            <Dropdown.Toggle
-              className="size-drop-down"
-              variant={sizeError ? "outline-danger" : "outline-dark"}
-              id="dropdown-basic"
-              align="start"
+                  return (
+                    <button
+                      disabled={!stockQty}
+                      className={`product__size__item ${
+                        hasSelected && "active"
+                      }`}
+                      onClick={() => selectSize(item)}
+                      key={item}
+                    >
+                      <div>{item.toUpperCase()}</div>
+                      <div>{stockQty ?? 0}</div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <Button
+              variant="dark"
+              className="add-button"
+              onClick={addItemToCart}
             >
-              {size === "" ? "사이즈 선택" : size.toUpperCase()}
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu className="size-drop-down">
-              {Object.keys(selectedProduct.stock).length > 0 &&
-                Object.keys(selectedProduct.stock).map((item, index) =>
-                  selectedProduct.stock[item] > 0 ? (
-                    <Dropdown.Item eventKey={item} key={index}>
-                      {item.toUpperCase()}
-                    </Dropdown.Item>
-                  ) : (
-                    <Dropdown.Item eventKey={item} disabled={true} key={index}>
-                      {item.toUpperCase()}
-                    </Dropdown.Item>
-                  )
-                )}
-            </Dropdown.Menu>
-          </Dropdown>
-          <div className="warning-message">
-            {sizeError && "사이즈를 선택해주세요."}
+              추가
+            </Button>
+            <div>
+              SHIPPING POLICY: Shipping is available to customers at least 13
+              years of age with a valid US shipping and billing address. H&M
+              HOME furniture, shelving, lighting and area rugs can only be
+              shipped via standard shipping. Orders placed using any other
+              method will be cancelled and a refund will be issued. PAYMENT: We
+              accept card payments via Visa, Apple Pay, MasterCard, Discover and
+              American Express. Learn more on our customer service pages.
+            </div>
           </div>
-          <Button variant="dark" className="add-button" onClick={addItemToCart}>
-            추가
-          </Button>
         </Col>
       </Row>
     </Container>

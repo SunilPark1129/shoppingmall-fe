@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: auto !important;
+}
 body {
   font-family: sans-serif;
   background-color: #faf9f8;
@@ -7,6 +10,11 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-top: 40px;
+}
+
+.wrapper {
+  max-width: 1800px;
+  width: 100%;
 }
 
 .menu {
@@ -79,6 +87,9 @@ body {
 
 .product-detail-card {
   min-width: 16rem;
+  max-width: 80rem !important;
+  width: 100%;
+  padding: 2rem 20px;
 }
 
 .product-detail-card__img-box {
@@ -365,7 +376,7 @@ body {
   top: 0;
   z-index: 9998;
 
-  animation: 2s loading-bg ease-in-out infinite alternate;
+  animation: 1s loading-bg ease-in-out infinite alternate;
 }
 
 @keyframes loading-spin {
@@ -376,7 +387,7 @@ body {
 
 @keyframes loading-bg {
   100% {
-    background-color: #45454571;
+    background-color: #97979765;
   }
 }
 
@@ -487,6 +498,69 @@ body {
 .landing-container > ul {
   margin: 0 !important;
   padding: 2rem 0;
+}
+
+.skeleton__card {
+  border: none !important;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+}
+
+.skeleton__img-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4.5;
+  outline: 1px solid rgb(226, 226, 226);
+  /* background-color: rgb(245, 245, 245); */
+  overflow: hidden;
+}
+
+.skeleton__img {
+  position: absolute;
+  /* right: 100%; */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #eeeeee;
+  animation: 1s skeleton-process ease-in-out infinite alternate;
+}
+
+.skeleton__info {
+  padding: 0.25rem 1.5rem;
+  overflow: hidden;
+  position: relative;
+  height: 48px;
+}
+
+.skeleton__info div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(235, 235, 235);
+  right: 100%;
+  /* animation: 3s skeleton-process ease-in-out infinite; */
+}
+
+@keyframes skeleton-process {
+  100% {
+    background-color: transparent;
+    /* right: -100%; */
+  }
+}
+
+footer {
+  width: 100%;
+  padding: 2rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer > div {
+  text-align: end;
 }
 
 @media screen and (max-width: 1400px) {

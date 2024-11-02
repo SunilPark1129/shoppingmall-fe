@@ -1,6 +1,6 @@
 import React from "react";
 
-function Loading() {
+function Loading({ clickable }) {
   return (
     <>
       <div className="loading-bar">
@@ -8,7 +8,7 @@ function Loading() {
         <div className="loading-bar__line"></div>
         <div className="loading-bar__line"></div>
       </div>
-      <div className="loading-bg"></div>
+      {!clickable && <div className="loading-bg"></div>}
     </>
   );
 }

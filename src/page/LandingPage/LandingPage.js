@@ -7,6 +7,7 @@ import { getProductList } from "../../features/product/productSlice";
 import Loading from "../../common/component/Loading";
 import ReactPaginate from "react-paginate";
 import LandingEmpty from "./components/LandingEmpty";
+import LandingLoading from "../../common/component/LandingLoading";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const LandingPage = () => {
   const page = query.get("page") || 1;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getProductList({ page: page, name: name }));
   }, [query]);
 
@@ -32,11 +34,8 @@ const LandingPage = () => {
 
   if (loading)
     return (
-      <div
-        className="position-relative m-auto"
-        style={{ maxWidth: "1320px", height: "20rem" }}
-      >
-        <Loading />
+      <div className="landing-container">
+        <LandingLoading />
       </div>
     );
 
