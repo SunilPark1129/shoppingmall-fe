@@ -18,38 +18,44 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
         </thead>
         <tbody>
           {data.length > 0 ? (
-            data.map((item, index) => (
-              <tr key={index}>
-                <th>{index}</th>
-                <th>{item.sku}</th>
-                <th style={{ minWidth: "100px" }}>{item.name}</th>
-                <th>{currencyFormat(item.price)}</th>
-                <th>
-                  {Object.keys(item.stock).map((size, index) => (
-                    <div key={index}>
-                      {size}:{item.stock[size]}
-                    </div>
-                  ))}
-                </th>
-                <th>
-                  <img src={item.image[0].url} width={100} alt="image" />
-                </th>
-                <th>{item.status}</th>
-                <th style={{ minWidth: "100px" }}>
-                  <Button
-                    size="sm"
-                    variant="danger"
-                    onClick={() => deleteItem(item._id)}
-                    className="mr-1"
-                  >
-                    -
-                  </Button>
-                  <Button size="sm" onClick={() => openEditForm(item)}>
-                    Edit
-                  </Button>
-                </th>
-              </tr>
-            ))
+            data.map((item, index) => {
+              // 이미지 최적화하기
+              const imgURL = item.image[0].url.split("/upload");
+              const newImgStr = imgURL[0] + `/upload/w_200` + imgURL[1];
+
+              return (
+                <tr key={item.sku}>
+                  <th>{index}</th>
+                  <th>{item.sku}</th>
+                  <th style={{ minWidth: "100px" }}>{item.name}</th>
+                  <th>{currencyFormat(item.price)}</th>
+                  <th>
+                    {Object.keys(item.stock).map((size, index) => (
+                      <div key={index}>
+                        {size}:{item.stock[size]}
+                      </div>
+                    ))}
+                  </th>
+                  <th>
+                    <img src={newImgStr} width={100} alt="image" />
+                  </th>
+                  <th>{item.status}</th>
+                  <th style={{ minWidth: "100px" }}>
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      onClick={() => deleteItem(item._id)}
+                      className="mr-1"
+                    >
+                      -
+                    </Button>
+                    <Button size="sm" onClick={() => openEditForm(item)}>
+                      Edit
+                    </Button>
+                  </th>
+                </tr>
+              );
+            })
           ) : (
             <tr>No Data to show</tr>
           )}

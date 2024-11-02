@@ -7,6 +7,9 @@ import { currencyFormat } from "../../../utils/number";
 import { updateQty, deleteCartItem } from "../../../features/cart/cartSlice";
 import ConfirmModal from "../../../common/component/ConfirmModal";
 const CartProductCard = ({ item }) => {
+  const imgURL = item.productId.image[0].url.split("/upload");
+  const newImgStr = imgURL[0] + `/upload/w_200` + imgURL[1];
+
   const dispatch = useDispatch();
   const [confirmOption, setConfirmOption] = useState({
     open: false,
@@ -36,7 +39,7 @@ const CartProductCard = ({ item }) => {
     <>
       <div className="product-card-cart">
         <div className="product-card-cart__img-box">
-          <img src={item.productId.image[0].url} alt={item.productId.name} />
+          <img src={newImgStr} alt={item.productId.name} />
         </div>
         <div className="product-card-cart__content">
           <div className="product-card-cart__header">
