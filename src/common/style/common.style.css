@@ -1,44 +1,110 @@
-.ml-2{
-    margin-left: 20px;
+.ml-2 {
+  margin-left: 20px;
 }
-.space-between{
-    justify-content: space-between;
+.space-between {
+  justify-content: space-between;
 }
-.mb-2{
-    margin-bottom: 20px !important;
-}
-
-.mt-2{
-    margin-top: 20px !important;
-}
-.list-style-none{
-    list-style: none;
- }
- .display-center{
-    display: flex;
-    justify-content: center;
- }
- .display-space-between{
-    display: flex;
-    justify-content: space-between;
- }
- .display-flex{
-    display: flex;
-  }
-.display-none{
-    display: none;
+.mb-2 {
+  margin-bottom: 20px !important;
 }
 
-.overflow-x{
-    overflow-x:auto;
-    width: 100%;
+.mt-2 {
+  margin-top: 20px !important;
+}
+.list-style-none {
+  list-style: none;
+}
+.display-center {
+  display: flex;
+  justify-content: center;
+}
+.display-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+.display-flex {
+  display: flex;
+}
+.display-none {
+  display: none;
+}
 
+.overflow-x {
+  overflow-x: auto;
+  width: 100%;
 }
 
 .overflow-x::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
 
-  .vh-100{
-    height:100vh;
+.vh-100 {
+  height: 100vh;
+}
+
+.confirm-modal {
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 2rem 4rem;
+  color: #3a3a3a;
+  border-radius: 4px;
+}
+
+.confirm-modal--warning .confirm-modal__title {
+  color: red;
+}
+
+.confirm-modal__title {
+  font-weight: bold;
+  padding: 1rem;
+}
+.confirm-modal__message {
+  max-width: 30rem;
+  width: 100%;
+  text-align: center;
+}
+.confirm-modal__btn-box {
+  display: flex;
+  gap: 1rem;
+}
+
+.confirm-modal__btn-box button {
+  display: flex;
+  border: 1px solid rgb(203, 212, 226);
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 0.25rem 1.5rem;
+  font-size: 0.9em;
+}
+
+.confirm-modal__btn-box button:hover {
+  background-color: rgb(232, 232, 232);
+}
+
+.confirm-modal--warning .confirm-modal__btn-box button:nth-of-type(1) {
+  background-color: red;
+  color: #fff;
+}
+
+.confirm-modal-bg {
+  position: fixed;
+  z-index: 9998;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.474);
+}
+
+@media (max-width: 900px) {
+  .confirm-modal {
+    padding: 1rem 2rem;
   }
+}

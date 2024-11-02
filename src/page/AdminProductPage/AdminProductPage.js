@@ -13,6 +13,7 @@ import {
   clearError,
 } from "../../features/product/productSlice";
 import Loading from "../../common/component/Loading";
+import ConfirmModal from "../../common/component/ConfirmModal";
 
 const AdminProductPage = () => {
   const navigate = useNavigate();
@@ -27,6 +28,12 @@ const AdminProductPage = () => {
 
   const [showDialog, setShowDialog] = useState(false);
   const [mode, setMode] = useState("new");
+
+  const [confirmOption, setConfirmOption] = useState({
+    open: false,
+    isWarning: false,
+    message: "Would you like to upload this item?",
+  });
 
   const tableHeader = [
     "#",
@@ -44,7 +51,7 @@ const AdminProductPage = () => {
     dispatch(getProductList({ page: queryPage, name: queryName }));
   }, [query]);
 
-  const deleteItem = async (id) => {
+  async function confirmDelete(id) {
     //아이템 삭제하기
 
     let page = queryPage;
@@ -65,6 +72,15 @@ const AdminProductPage = () => {
       // page를 보내면 해당 페이지로 새로운 product 아이템들을 서버에서 가져옴
       dispatch(deleteProduct({ id, page, name: queryName }));
     }
+  }
+
+  const deleteItem = async (id) => {
+    setConfirmOption({
+      open: true,
+      isWarning: true,
+      message: "Would you like to delete this item?",
+      cb: () => confirmDelete(id),
+    });
   };
 
   const openEditForm = (product) => {
@@ -140,6 +156,13 @@ const AdminProductPage = () => {
         page={queryPage}
         name={queryName}
       />
+
+      {confirmOption.open && (
+        <ConfirmModal
+          setConfirmOption={setConfirmOption}
+          confirmOption={confirmOption}
+        />
+      )}
     </div>
   );
 };

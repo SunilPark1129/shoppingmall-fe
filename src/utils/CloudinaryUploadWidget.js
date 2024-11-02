@@ -40,7 +40,6 @@ function CloudinaryUploadWidget({ uwConfig, uploadImage }) {
       uwConfig,
       (error, result) => {
         if (!error && result && result.event === "success") {
-          console.log("rrrr", result);
           uploadImage(result.info.secure_url);
         }
       }
