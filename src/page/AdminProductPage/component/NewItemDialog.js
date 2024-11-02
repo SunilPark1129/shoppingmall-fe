@@ -44,6 +44,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
     open: false,
     isWarning: false,
     message: "Would you like to upload this item?",
+    cb: () => {},
   });
 
   // Cloudinary

@@ -1,20 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { currencyFormat } from "../../../utils/number";
 import { updateQty, deleteCartItem } from "../../../features/cart/cartSlice";
+import ConfirmModal from "../../../common/component/ConfirmModal";
 const CartProductCard = ({ item }) => {
   const dispatch = useDispatch();
+  const [confirmOption, setConfirmOption] = useState({
+    open: false,
+    isWarning: false,
+    message: "",
+    cb: () => {},
+  });
 
   const handleQtyChange = (id, value) => {
     dispatch(updateQty({ id, value }));
   };
 
   const deleteCart = (id) => {
-    dispatch(deleteCartItem(id));
+    setConfirmOption({
+      open: true,
+      isWarning: true,
+      message: "Would you like to remove this item from the cart?",
+      cb: () => confirmDelete(id),
+    });
   };
+
+  function confirmDelete(id) {
+    dispatch(deleteCartItem(id));
+  }
 
   return (
     <div className="product-card-cart">
@@ -63,6 +79,12 @@ const CartProductCard = ({ item }) => {
           </div>
         </Col>
       </Row>
+      {confirmOption.open && (
+        <ConfirmModal
+          setConfirmOption={setConfirmOption}
+          confirmOption={confirmOption}
+        />
+      )}
     </div>
   );
 };

@@ -1,10 +1,18 @@
 import React from "react";
 
 /** 
-<ConfirmModal
-setConfirmOption={setConfirmOption}
-confirmOption={confirmOption}
-/>
+example ------------------
+  const [confirmOption, setConfirmOption] = useState({
+    open: false,
+    isWarning: false,
+    message: "Would you like to upload this item?",
+    cb: ()=>{}
+  });
+
+  <ConfirmModal
+    setConfirmOption={setConfirmOption}
+    confirmOption={confirmOption}
+  />;
 */
 
 function ConfirmModal({ setConfirmOption, confirmOption }) {
