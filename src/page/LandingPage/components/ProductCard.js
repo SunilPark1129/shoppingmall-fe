@@ -14,27 +14,29 @@ const ProductCard = ({ item }) => {
   // 이미지 최적화하기
   const imgURL = item.image[0].url.split("/upload");
 
-  const smImg = imgURL[0] + `/upload/w_${smWidth}` + imgURL[1];
-  const bgImg = imgURL[0] + `/upload/w_${lgWidth}` + imgURL[1];
-  let smImg2 = "";
-  let bgImg2 = "";
+  const moblieImg = imgURL[0] + `/upload/w_${smWidth}` + imgURL[1];
+  const desktopImg = imgURL[0] + `/upload/w_${lgWidth}` + imgURL[1];
+  let moblieImg2 = "";
+  let desktopImg2 = "";
 
+  // 두번째 이미지가 있다면 두번째도 새로운 이미지 스트링 만들기
   if (item.image[1]) {
     const imgURL2 = item.image[1].url.split("/upload");
-    smImg2 = imgURL2[0] + `/upload/w_${smWidth}` + imgURL2[1];
-    bgImg2 = imgURL2[0] + `/upload/w_${lgWidth}` + imgURL2[1];
+    moblieImg2 = imgURL2[0] + `/upload/w_${smWidth}` + imgURL2[1];
+    desktopImg2 = imgURL2[0] + `/upload/w_${lgWidth}` + imgURL2[1];
   }
 
+  // 이미지 element의 옵션
   const firstImg = {
-    src: smImg,
-    srcSet: `${smImg} ${smWidth}w, ${bgImg} ${lgWidth}w`,
+    src: moblieImg,
+    srcSet: `${moblieImg} ${smWidth}w, ${desktopImg} ${lgWidth}w`,
     sizes: `(max-width: 400px) ${smWidth}px, ${lgWidth}px`,
     alt: "img",
   };
 
-  const secondImg = smImg2 && {
-    src: smImg2,
-    srcSet: `${smImg2} ${smWidth}w, ${bgImg2} ${lgWidth}w`,
+  const secondImg = moblieImg2 && {
+    src: moblieImg2,
+    srcSet: `${moblieImg2} ${smWidth}w, ${desktopImg2} ${lgWidth}w`,
     sizes: `(max-width: 400px) ${smWidth}px, ${lgWidth}px`,
     alt: "img",
   };
