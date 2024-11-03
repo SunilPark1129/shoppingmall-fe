@@ -8,6 +8,7 @@ import "./style/productDetail.style.css";
 import { getProductDetail } from "../../features/product/productSlice";
 import { addToCart } from "../../features/cart/cartSlice";
 import Loading from "../../common/component/Loading";
+import { resizeImage } from "../../utils/resizeImage";
 
 const sizes = ["xs", "s", "m", "l", "xl"];
 
@@ -80,7 +81,7 @@ const ProductDetail = () => {
         <Col sm={6}>
           <div className="product-detail-card__img-box">
             <img
-              src={selectedProduct.image[selectedImg].url}
+              src={resizeImage(selectedProduct.image[selectedImg].url, 800)}
               className="w-100"
               alt="image"
             />
@@ -96,7 +97,7 @@ const ProductDetail = () => {
                   {!imgHide &&
                     imgList.map(({ url, id }) => (
                       <img
-                        src={url}
+                        src={resizeImage(url, 200)}
                         key={id}
                         alt="image"
                         onClick={() => imgClickHandler(id)}

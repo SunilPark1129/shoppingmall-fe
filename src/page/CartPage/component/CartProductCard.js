@@ -7,10 +7,8 @@ import { currencyFormat } from "../../../utils/number";
 import { updateQty, deleteCartItem } from "../../../features/cart/cartSlice";
 import ConfirmModal from "../../../common/component/ConfirmModal";
 import { Link } from "react-router-dom";
+import { resizeImage } from "../../../utils/resizeImage";
 const CartProductCard = ({ item }) => {
-  const imgURL = item.productId.image[0].url.split("/upload");
-  const newImgStr = imgURL[0] + `/upload/w_200` + imgURL[1];
-
   // 해당 아이템의 디테일 페이지로 이동
   const productDetailLink = `/product/${item.productId._id}`;
 
@@ -43,7 +41,10 @@ const CartProductCard = ({ item }) => {
     <>
       <div className="product-card-cart">
         <div className="product-card-cart__img-box">
-          <img src={newImgStr} alt={item.productId.name} />
+          <img
+            src={resizeImage(item.productId.image[0].url, 200)}
+            alt={item.productId.name}
+          />
         </div>
         <div className="product-card-cart__content">
           <div className="product-card-cart__header">

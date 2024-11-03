@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { currencyFormat } from "../../../utils/number";
+import { resizeImage } from "../../../utils/resizeImage";
 
 const smWidth = "400";
 const lgWidth = "600";
@@ -12,18 +13,19 @@ const ProductCard = ({ item }) => {
   };
 
   // 이미지 최적화하기
-  const imgURL = item.image[0].url.split("/upload");
+  const image = item.image[0].url;
 
-  const moblieImg = imgURL[0] + `/upload/w_${smWidth}` + imgURL[1];
-  const desktopImg = imgURL[0] + `/upload/w_${lgWidth}` + imgURL[1];
+  const moblieImg = resizeImage(image, smWidth);
+  const desktopImg = resizeImage(image, lgWidth);
   let moblieImg2 = "";
   let desktopImg2 = "";
 
   // 두번째 이미지가 있다면 두번째도 새로운 이미지 스트링 만들기
   if (item.image[1]) {
-    const imgURL2 = item.image[1].url.split("/upload");
-    moblieImg2 = imgURL2[0] + `/upload/w_${smWidth}` + imgURL2[1];
-    desktopImg2 = imgURL2[0] + `/upload/w_${lgWidth}` + imgURL2[1];
+    const image = item.image[1].url;
+
+    moblieImg2 = resizeImage(image, smWidth);
+    desktopImg2 = resizeImage(image, lgWidth);
   }
 
   // 이미지 element의 옵션

@@ -2,17 +2,15 @@ import React from "react";
 import { Row, Col, Badge } from "react-bootstrap";
 import { badgeBg } from "../../../constants/order.constants";
 import { currencyFormat } from "../../../utils/number";
+import { resizeImage } from "../../../utils/resizeImage";
 
 const OrderStatusCard = ({ orderItem }) => {
+  const image = resizeImage(orderItem.items[0]?.productId?.image[0].url, 100);
   return (
     <div>
       <Row className="status-card">
         <Col xs={2}>
-          <img
-            src={orderItem.items[0]?.productId?.image[0].url}
-            alt={orderItem.items[0]?.productId?.image}
-            height={96}
-          />
+          <img src={image} alt={"cloth"} height={96} />
         </Col>
         <Col xs={8} className="order-info">
           <div>

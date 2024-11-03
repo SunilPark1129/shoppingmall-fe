@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import { currencyFormat } from "../../../utils/number";
 import { useSelector } from "react-redux";
 import Loading from "../../../common/component/Loading";
+import { resizeImage } from "../../../utils/resizeImage";
 
 const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
   return (
@@ -20,8 +21,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
           {data.length > 0 ? (
             data.map((item, index) => {
               // 이미지 최적화하기
-              const imgURL = item.image[0].url.split("/upload");
-              const newImgStr = imgURL[0] + `/upload/w_200` + imgURL[1];
+              const image = resizeImage(item.image[0].url, 200);
 
               return (
                 <tr key={item.sku}>
@@ -37,7 +37,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                     ))}
                   </th>
                   <th>
-                    <img src={newImgStr} width={100} alt="image" />
+                    <img src={image} width={100} alt="image" />
                   </th>
                   <th>{item.status}</th>
                   <th style={{ minWidth: "100px" }}>
