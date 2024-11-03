@@ -96,6 +96,7 @@ body {
   position: relative;
   width: 100%;
   overflow: hidden;
+  aspect-ratio: 2/3;
 }
 
 .product-detail-card__arrow {

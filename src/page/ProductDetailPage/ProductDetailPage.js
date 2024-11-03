@@ -70,7 +70,7 @@ const ProductDetail = () => {
     return (
       <div
         className="position-relative m-auto"
-        style={{ maxWidth: "1320px", height: "20rem" }}
+        style={{ maxWidth: "1320px", height: "100vh" }}
       >
         <Loading />
       </div>
