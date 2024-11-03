@@ -11,6 +11,7 @@ const initialState = {
   error: "",
   loading: false,
   totalPageNum: 1,
+  status: false,
 };
 
 // Async thunks
@@ -21,7 +22,7 @@ export const createOrder = createAsyncThunk(
       const response = await api.post("/order", payload);
       if (response.status !== 200) throw new Error(response.message);
       dispatch(deleteAllCartItem());
-      return response.orderNum;
+      return response.data.orderNum;
     } catch (error) {
       dispatch(showToastMessage({ message: error.message, status: "error" }));
       rejectWithValue(error.message);
@@ -52,23 +53,29 @@ const orderSlice = createSlice({
     setSelectedOrder: (state, action) => {
       state.selectedOrder = action.payload;
     },
+    resetStatusOrder: (state) => {
+      state.status = false;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(createOrder.pending, (state, action) => {
         state.loading = true;
+        state.status = false;
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.loading = false;
         state.error = "";
         state.orderNum = action.payload;
+        state.status = true;
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.status = false;
       });
   },
 });
 
-export const { setSelectedOrder } = orderSlice.actions;
+export const { setSelectedOrder, resetStatusOrder } = orderSlice.actions;
 export default orderSlice.reducer;

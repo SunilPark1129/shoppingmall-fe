@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../PaymentPage/style/paymentPage.style.css";
+import { resetStatusOrder } from "../../features/order/orderSlice";
 
 const OrderCompletePage = () => {
+  const dispatch = useDispatch();
   const { orderNum } = useSelector((state) => state.order);
+  useEffect(() => {
+    dispatch(resetStatusOrder());
+  }, []);
   if (orderNum === "")
     return (
       <Container className="confirmation-page">
@@ -24,12 +29,12 @@ const OrderCompletePage = () => {
         className="check-image"
         alt="greenCheck.png"
       />
-      <h2>예약이 완료됬습니다!</h2>
-      <div>예약번호:하드코딩</div>
+      <h2>주문이 완료됬습니다!</h2>
+      <div>주문번호: {orderNum}</div>
       <div>
-        예약 확인은 내 예약 메뉴에서 확인해주세요
+        주문 확인은 내 주문 메뉴에서 확인해주세요
         <div className="text-align-center">
-          <Link to={"/account/purchase"}>내 예약 바로가기</Link>
+          <Link to={"/account/purchase"}>내 주문 바로가기</Link>
         </div>
       </div>
     </Container>
