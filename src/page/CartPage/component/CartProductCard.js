@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faTshirt } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { currencyFormat } from "../../../utils/number";
 import { updateQty, deleteCartItem } from "../../../features/cart/cartSlice";
 import ConfirmModal from "../../../common/component/ConfirmModal";
+import { Link } from "react-router-dom";
 const CartProductCard = ({ item }) => {
   const imgURL = item.productId.image[0].url.split("/upload");
   const newImgStr = imgURL[0] + `/upload/w_200` + imgURL[1];
+
+  // 해당 아이템의 디테일 페이지로 이동
+  const productDetailLink = `/product/${item.productId._id}`;
 
   const dispatch = useDispatch();
   const [confirmOption, setConfirmOption] = useState({
@@ -44,12 +48,18 @@ const CartProductCard = ({ item }) => {
         <div className="product-card-cart__content">
           <div className="product-card-cart__header">
             <h3>{item.productId.name}</h3>
-            <button
-              className="trash-button"
-              onClick={() => deleteCart(item._id)}
-            >
-              <FontAwesomeIcon icon={faTrash} width={24} />
-            </button>
+            <div className="product-card-cart__header__btns">
+              <Link to={productDetailLink} title="go to detail page">
+                <FontAwesomeIcon icon={faTshirt} width={24} />
+              </Link>
+              <button
+                className="trash-button"
+                onClick={() => deleteCart(item._id)}
+                title="delete item"
+              >
+                <FontAwesomeIcon icon={faTrash} width={24} />
+              </button>
+            </div>
           </div>
 
           <div>
