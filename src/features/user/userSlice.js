@@ -24,7 +24,6 @@ export const loginWithGoogle = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await api.post("/auth/google", { token });
-      if (response.status !== 200) throw new Error(response.message);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);

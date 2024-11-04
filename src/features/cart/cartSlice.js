@@ -18,7 +18,6 @@ export const addToCart = createAsyncThunk(
   async ({ id, size }, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.post("/cart", { productId: id, size, qty: 1 });
-      if (response.status !== 200) throw new Error(response.message);
       dispatch(
         showToastMessage({
           message: "카트에 아이템이 추가 됐습니다",
@@ -43,7 +42,6 @@ export const getCartList = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.get("/cart");
-      if (response.status !== 200) throw new Error("카트 가져오기 실패");
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.message);
@@ -56,7 +54,6 @@ export const deleteCartItem = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.delete(`/cart/${id}`);
-      if (response.status !== 200) throw new Error("카트 아이템 삭제 실패");
       dispatch(
         showToastMessage({
           message: "카트에서 아이템이 삭제되었습니다",
@@ -80,8 +77,7 @@ export const deleteAllCartItem = createAsyncThunk(
   "cart/deleteAllCartItem",
   async (_, { rejectWithValue, dispatch }) => {
     try {
-      const response = await api.delete(`/cart/all`);
-      if (response.status !== 200) throw new Error("카트 아이템 삭제 실패");
+      await api.delete(`/cart/all`);
     } catch (error) {
       dispatch(
         showToastMessage({
@@ -99,7 +95,6 @@ export const updateQty = createAsyncThunk(
   async ({ id, value }, { rejectWithValue }) => {
     try {
       const response = await api.put(`/cart/updateQty/${id}`, { qty: value });
-      if (response.status !== 200) throw new Error("카트 갯수 업데이트 실패");
       return response.data.data;
     } catch (error) {
       rejectWithValue(error.message);
@@ -112,7 +107,6 @@ export const getCartQty = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.get("/cart/getCartQty");
-      if (response.status !== 200) throw new Error("카트 갯수 가져오기 실패");
       return response.data.qty;
     } catch (error) {
       rejectWithValue(error.message);
