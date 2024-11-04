@@ -9,7 +9,7 @@ const initialState = {
   orderNum: "",
   selectedOrder: {},
   error: "",
-  loading: false,
+  loading: true,
   totalPageNum: 1,
   status: false,
 };
@@ -51,7 +51,7 @@ export const getOrderList = createAsyncThunk(
     try {
       const response = await api.get("/order", { params: { ...query } });
       if (response.status !== 200) throw new Error(response.message);
-      console.log(response.data.data);
+
       return response.data;
     } catch (error) {
       // dispatch(showToastMessage({ message: error.message, status: "error" }));
@@ -99,7 +99,8 @@ const orderSlice = createSlice({
       })
       .addCase(getOrderList.fulfilled, (state, action) => {
         state.loading = false;
-        state.orderList = action.payload;
+        state.orderList = action.payload.data;
+        state.totalPageNum = action.payload.totalPageNum;
         state.error = "";
 
         // orderList: [],

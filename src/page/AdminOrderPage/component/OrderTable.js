@@ -10,15 +10,15 @@ const OrderTable = ({ header, data, openEditForm }) => {
         <thead>
           <tr>
             {header.map((title) => (
-              <th>{title}</th>
+              <th key={title}>{title}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {data.length > 0 ? (
-            data.map((item, index) => (
-              <tr onClick={() => openEditForm(item)}>
-                <th>{index}</th>
+            data.map((item) => (
+              <tr key={item.orderNum} onClick={() => openEditForm(item)}>
+                <th>{item._id}</th>
                 <th>{item.orderNum}</th>
                 <th>{item.createdAt.slice(0, 10)}</th>
                 <th>{item.userId.email}</th>

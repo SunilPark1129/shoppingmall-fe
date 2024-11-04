@@ -11,16 +11,16 @@ import {
   setSelectedOrder,
 } from "../../features/order/orderSlice";
 import "./style/adminOrder.style.css";
+import Loading from "../../common/component/Loading";
 
 const AdminOrderPage = () => {
   const navigate = useNavigate();
   const [query] = useSearchParams();
+  const page = query.get("page") || 1;
   const dispatch = useDispatch();
-  const { orderList, totalPageNum } = useSelector((state) => state.order);
-  const [searchQuery, setSearchQuery] = useState({
-    page: query.get("page") || 1,
-    ordernum: query.get("ordernum") || "",
-  });
+  const { orderList, totalPageNum, loading } = useSelector(
+    (state) => state.order
+  );
   const [open, setOpen] = useState(false);
 
   const tableHeader = [
@@ -35,18 +35,9 @@ const AdminOrderPage = () => {
   ];
 
   useEffect(() => {
-    dispatch(getOrderList({ ...searchQuery }));
+    const queries = { page: query.get("page"), orderNum: query.get("name") };
+    dispatch(getOrderList({ ...queries }));
   }, [query]);
-
-  useEffect(() => {
-    if (searchQuery.ordernum === "") {
-      delete searchQuery.ordernum;
-    }
-    const params = new URLSearchParams(searchQuery);
-    const queryString = params.toString();
-
-    navigate("?" + queryString);
-  }, [searchQuery]);
 
   const openEditForm = (order) => {
     setOpen(true);
@@ -54,7 +45,7 @@ const AdminOrderPage = () => {
   };
 
   const handlePageClick = ({ selected }) => {
-    setSearchQuery({ ...searchQuery, page: selected + 1 });
+    navigate(`?page=${selected + 1}`);
   };
 
   const handleClose = () => {
@@ -65,25 +56,25 @@ const AdminOrderPage = () => {
     <div className="locate-center">
       <Container>
         <div className="mt-2 display-center mb-2">
-          <SearchBox
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            placeholder="오더번호"
-            field="ordernum"
-          />
+          <SearchBox placeholder="오더번호" field="ordernum" />
         </div>
 
-        <OrderTable
-          header={tableHeader}
-          data={orderList}
-          openEditForm={openEditForm}
-        />
+        {loading ? (
+          <Loading clickable={true} />
+        ) : (
+          <OrderTable
+            header={tableHeader}
+            data={orderList}
+            openEditForm={openEditForm}
+          />
+        )}
+
         <ReactPaginate
           nextLabel="next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={totalPageNum}
-          forcePage={searchQuery.page - 1}
+          forcePage={page - 1}
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
