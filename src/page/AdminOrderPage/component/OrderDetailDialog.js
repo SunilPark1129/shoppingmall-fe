@@ -4,17 +4,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { ORDER_STATUS } from "../../../constants/order.constants";
 import { currencyFormat } from "../../../utils/number";
 import { updateOrder } from "../../../features/order/orderSlice";
+import { useSearchParams } from "react-router-dom";
 
 const OrderDetailDialog = ({ open, handleClose }) => {
   const selectedOrder = useSelector((state) => state.order.selectedOrder);
   const [orderStatus, setOrderStatus] = useState(selectedOrder.status);
   const dispatch = useDispatch();
 
+  const [query] = useSearchParams();
+  const page = query.get("page") || 1;
+  const orderNum = query.get("name") || "";
+
   const handleStatusChange = (event) => {
     setOrderStatus(event.target.value);
   };
-  const submitStatus = () => {
-    dispatch(updateOrder({ id: selectedOrder._id, status: orderStatus }));
+  const submitStatus = (e) => {
+    e.preventDefault();
+    dispatch(
+      updateOrder({
+        id: selectedOrder._id,
+        status: orderStatus,
+        page,
+        orderNum,
+      })
+    );
     handleClose();
   };
 

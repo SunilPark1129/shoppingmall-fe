@@ -17,6 +17,7 @@ const AdminOrderPage = () => {
   const navigate = useNavigate();
   const [query] = useSearchParams();
   const page = query.get("page") || 1;
+  const orderNum = query.get("name") || "";
   const dispatch = useDispatch();
   const { orderList, totalPageNum, loading } = useSelector(
     (state) => state.order
@@ -35,7 +36,7 @@ const AdminOrderPage = () => {
   ];
 
   useEffect(() => {
-    const queries = { page: query.get("page"), orderNum: query.get("name") };
+    const queries = { page, orderNum };
     dispatch(getOrderList({ ...queries }));
   }, [query]);
 

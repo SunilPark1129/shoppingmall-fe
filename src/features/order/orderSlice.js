@@ -59,7 +59,30 @@ export const getOrderList = createAsyncThunk(
 
 export const updateOrder = createAsyncThunk(
   "order/updateOrder",
-  async ({ id, status }, { dispatch, rejectWithValue }) => {}
+  async ({ id, status, page, orderNum }, { dispatch, rejectWithValue }) => {
+    try {
+      // controller에서 getOrderList (method:GET)를 불러와서 사용할 예정이라
+      // page와 orderNum을 params로 보낸다
+      const response = await api.put(
+        `/order/${id}?page=${page}&orderNum=${orderNum}`,
+        {
+          id,
+          status,
+        }
+      );
+      if (response.status !== 200) throw new Error(response.error);
+      dispatch(
+        showToastMessage({
+          message: `오더를 ${status}으로 변경하였습니다`,
+          status: "success",
+        })
+      );
+      return response.data;
+    } catch (error) {
+      dispatch(showToastMessage({ message: error.message, status: "error" }));
+      rejectWithValue(error.message);
+    }
+  }
 );
 
 // Order slice
@@ -113,6 +136,19 @@ const orderSlice = createSlice({
         state.totalPageNum = action.payload.totalPageNum;
       })
       .addCase(getOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateOrder.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updateOrder.fulfilled, (state, action) => {
+        state.loading = false;
+        state.orderList = action.payload.data;
+        state.totalPageNum = action.payload.totalPageNum;
+        state.error = "";
+      })
+      .addCase(updateOrder.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
