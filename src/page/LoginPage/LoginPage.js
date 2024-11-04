@@ -3,7 +3,6 @@ import { Container, Form, Button, Alert } from "react-bootstrap";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleLogin } from "@react-oauth/google";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./style/login.style.css";
 import { loginWithEmail, loginWithGoogle } from "../../features/user/userSlice";
 import { clearErrors } from "../../features/user/userSlice";
@@ -35,6 +34,7 @@ const Login = () => {
 
   const handleGoogleLogin = async (googleData) => {
     //구글 로그인 하기
+    dispatch(loginWithGoogle(googleData.credential));
   };
 
   // 유저 값이 있다면 로그인 페이지를 스킵한다
@@ -85,14 +85,20 @@ const Login = () => {
           <div className="text-align-center mt-2">
             <p>-외부 계정으로 로그인하기-</p>
             <div className="display-center">
-              <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-                <GoogleLogin
-                  onSuccess={handleGoogleLogin}
-                  onError={() => {
-                    console.log("Login Failed");
-                  }}
-                />
-              </GoogleOAuthProvider>
+              {/* 
+              1. Oauth로그인을 위해서 google api 사이트에 가입하고 클라이언트키, 시크릿키 받아오기
+              2. 구글 로그인 버튼 가져오기
+              3. 로그인
+              4. 백엔드에서 로그인하기
+                a. 이미 로그인을 한적이 있는 유저 => 로그인시키고 토큰값 주면 끝
+                b. 처음 로그인 시도를 한 유저 => 유저정보 먼저 새로 생성 => 토큰값
+              */}
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
             </div>
           </div>
         </Form>
