@@ -18,29 +18,31 @@ const OrderTable = ({ header, data, openEditForm }) => {
           {data.length > 0 ? (
             data.map((item) => (
               <tr key={item.orderNum} onClick={() => openEditForm(item)}>
-                <th>{item._id}</th>
-                <th>{item.orderNum}</th>
-                <th>{item.createdAt.slice(0, 10)}</th>
-                <th>{item.userId.email}</th>
+                <td>{item._id}</td>
+                <td>{item.orderNum}</td>
+                <td>{item.createdAt.slice(0, 10)}</td>
+                <td>{item.userId.email}</td>
                 {item.items.length > 0 ? (
-                  <th>
+                  <td>
                     {item.items[0].productId.name}
                     {item.items.length > 1 && `외 ${item.items.length - 1}개`}
-                  </th>
+                  </td>
                 ) : (
-                  <th></th>
+                  <td></td>
                 )}
 
-                <th>{item.shipTo.address + " " + item.shipTo.city}</th>
+                <td>{item.shipTo.address + " " + item.shipTo.city}</td>
 
-                <th>{currencyFormat(item.totalPrice)}</th>
-                <th>
+                <td>{currencyFormat(item.totalPrice)}</td>
+                <td>
                   <Badge bg={badgeBg[item.status]}>{item.status}</Badge>
-                </th>
+                </td>
               </tr>
             ))
           ) : (
-            <tr>No Data to show</tr>
+            <tr>
+              <td>No Data to show</td>
+            </tr>
           )}
         </tbody>
       </Table>
