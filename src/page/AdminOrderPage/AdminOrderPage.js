@@ -54,20 +54,17 @@ const AdminOrderPage = () => {
 
   return (
     <div className="locate-center">
+      {loading && <Loading clickable={true} />}
       <Container>
         <div className="mt-2 display-center mb-2">
           <SearchBox placeholder="오더번호" field="ordernum" />
         </div>
 
-        {loading ? (
-          <Loading clickable={true} />
-        ) : (
-          <OrderTable
-            header={tableHeader}
-            data={orderList}
-            openEditForm={openEditForm}
-          />
-        )}
+        <OrderTable
+          header={tableHeader}
+          data={orderList}
+          openEditForm={openEditForm}
+        />
 
         <ReactPaginate
           nextLabel="next >"
