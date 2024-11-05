@@ -81,7 +81,7 @@ const ProductDetail = () => {
         <Col sm={6}>
           <div className="product-detail-card__img-box">
             <img
-              src={resizeImage(selectedProduct.image[selectedImg].url, 800)}
+              src={resizeImage(selectedProduct.image[selectedImg].url, 600)}
               className="w-100"
               alt="image"
             />
@@ -97,7 +97,10 @@ const ProductDetail = () => {
                   {!imgHide &&
                     imgList.map(({ url, id }) => (
                       <img
-                        src={resizeImage(url, 200)}
+                        src={resizeImage(
+                          selectedProduct.image[selectedImg].url,
+                          600
+                        )}
                         key={id}
                         alt="image"
                         onClick={() => imgClickHandler(id)}
