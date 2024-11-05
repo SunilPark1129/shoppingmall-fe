@@ -1,54 +1,126 @@
-.status-card{
-    background-color: white;
-    padding:10px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    margin-bottom: 20px;
+.status-card {
+  padding: 10px;
+  /* border: 1px solid rgb(169, 169, 169); */
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+  /* margin-bottom: 20px; */
 }
-.status-card:hover{
-    background-color: rgba(238, 30, 30, 0.148);
+.status-card:hover {
+  /* background-color: rgba(238, 30, 30, 0.148); */
 }
-.vertical-middle{
-    display: flex;
+.vertical-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.status-card-container {
+  /* margin-bottom: 20px; */
+  max-width: 900px;
+  background-color: #fff;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.status-card__btn {
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid rgb(197, 197, 197);
+  background-color: transparent;
+  color: rgb(76, 76, 76);
+  font-size: 0.9em;
+  align-items: center;
+}
+
+.status-card__btn:hover {
+  color: black;
+  border: 1px solid black;
+}
+
+.order-button-area {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.order-button-area button {
+  margin-left: 20px;
+}
+
+.text-align-center {
+  text-align: center;
+  margin-bottom: 5px;
+}
+.text-14 {
+  font-size: 14px;
+}
+
+.no-order-box {
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.status-card__detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 700px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.status-card__content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.status-card__item {
+  display: flex;
+  gap: 2rem;
+}
+
+.status-card__gap {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.status-card__img-box {
+  position: relative;
+  width: 80px;
+  aspect-ratio: 2/3;
+  flex-shrink: 0;
+}
+
+.status-card__img-box img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.status-card__desc {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.status-card__desc div:nth-of-type(1) {
+  margin-bottom: auto;
+  font-weight: bold;
+  color: rgb(87, 87, 87);
+}
+
+@media (max-width: 500px) {
+  .status-card__item {
     flex-direction: column;
-    justify-content: center;
-}
-.status-card-container{
-    margin-bottom: 20px;
-    max-width: 750px;
-   
-}
-
-
-
-
-.order-button-area{
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-}
-.order-button-area button{
-    margin-left: 20px;
-}
-
-.text-align-center{
-    text-align: center;
-    margin-bottom: 5px;
-}
-.text-12{
-    font-size: 12px;
-
-}
-
-.no-order-box{
-    background-color: white;
-    text-align: center;
-    padding:20px
-}
-
-@media screen and (max-width: 63rem) {
-   .order-info{
-    margin-left: 20px;
-    }
+    gap: 0.5rem;
   }
-
-  
+  .status-card__content {
+    gap: 0.5rem;
+    flex-direction: column;
+    align-items: start;
+  }
+}
