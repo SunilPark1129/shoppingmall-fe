@@ -1,10 +1,6 @@
 const img1 = "https://ik.imagekit.io/spark1129/sip/other/l2.jpg".split("/sip");
-const img2 = "https://ik.imagekit.io/spark1129/sip/other/nlg4.jpg".split(
-  "/sip"
-);
-const img3 = "https://ik.imagekit.io/spark1129/sip/other/nlg6.jpg".split(
-  "/sip"
-);
+const img2 = "https://ik.imagekit.io/spark1129/sip/other/14.jpg".split("/sip");
+const img3 = "https://ik.imagekit.io/spark1129/sip/other/16.jpg".split("/sip");
 
 function imgTransform(arr, size) {
   return arr[0] + `/sip/tr:w-${size}` + arr[1];
