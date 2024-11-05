@@ -7,7 +7,7 @@ import Login from "../page/LoginPage/LoginPage";
 import MyPage from "../page/MyPage/MyPage";
 import OrderCompletePage from "../page/OrderCompletePage/OrderCompletePage";
 import PaymentPage from "../page/PaymentPage/PaymentPage";
-import ProductAll from "../page/LandingPage/LandingParentPage";
+import ProductAll from "../page/LandingPage/LandingPage";
 import ProductDetail from "../page/ProductDetailPage/ProductDetailPage";
 import RegisterPage from "../page/RegisterPage/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
