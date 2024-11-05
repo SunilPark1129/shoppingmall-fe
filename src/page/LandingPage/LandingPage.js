@@ -38,8 +38,6 @@ const LandingPage = () => {
       </div>
     );
 
-  console.log(page);
-
   return (
     <div>
       {Number(page) === 1 && !name && <Banner />}
