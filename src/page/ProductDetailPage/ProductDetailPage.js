@@ -97,10 +97,7 @@ const ProductDetail = () => {
                   {!imgHide &&
                     imgList.map(({ url, id }) => (
                       <img
-                        src={resizeImage(
-                          selectedProduct.image[selectedImg].url,
-                          600
-                        )}
+                        src={resizeImage(url, 600)}
                         key={id}
                         alt="image"
                         onClick={() => imgClickHandler(id)}

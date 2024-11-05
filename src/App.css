@@ -137,6 +137,8 @@ body {
 .product-detail-card__img-lists img {
   width: 100%;
   border: 1px solid rgb(201, 201, 201);
+  aspect-ratio: 2/3;
+  background-color: rgba(0, 0, 0, 0.18);
   cursor: pointer;
 }
 
