@@ -20,7 +20,7 @@ export const addToCart = createAsyncThunk(
       const response = await api.post("/cart", { productId: id, size, qty: 1 });
       dispatch(
         showToastMessage({
-          message: "Item have been added to the cart",
+          message: "Item has been added to the cart",
           status: "success",
         })
       );
