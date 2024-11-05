@@ -83,6 +83,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
   const handleClose = () => {
     //모든걸 초기화시키고;
     setFormData(InitialFormData);
+    setStockError(false);
     setStock([]);
     // 다이얼로그 닫아주기
     setShowDialog(false);
@@ -151,6 +152,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
   };
 
   const handleStockChange = (value, index) => {
+    setStockError(false);
     //재고 수량 변환하기
     const newStock = [...stock];
     newStock[index][1] = value;
