@@ -17,17 +17,23 @@ const LandingPage = () => {
   );
   const [query] = useSearchParams();
   const name = query.get("name");
+  const category = query.getAll("category");
   const page = query.get("page") || 1;
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(getProductList({ page: page, name: name }));
+    dispatch(getProductList({ page, name, category }));
   }, [query]);
 
   const handlePageClick = ({ selected }) => {
     //  쿼리에 페이지값 바꿔주기
     let query = `page=${selected + 1}`;
     if (name) query = query + `&name=${name}`;
+    if (category.length !== 0) {
+      category.forEach((item) => {
+        query = query + `&category=${item}`;
+      });
+    }
     navigate("?" + query);
   };
 
@@ -40,7 +46,7 @@ const LandingPage = () => {
 
   return (
     <div>
-      {Number(page) === 1 && !name && <Banner />}
+      {Number(page) === 1 && !name && category.length === 0 && <Banner />}
       <div className="landing-container">
         <div className="landing-content">
           {productList.length > 0 &&
