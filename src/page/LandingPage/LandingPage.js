@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./components/ProductCard";
-import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductList } from "../../features/product/productSlice";
-import Loading from "../../common/component/Loading";
 import ReactPaginate from "react-paginate";
 import LandingEmpty from "./components/LandingEmpty";
 import LandingLoading from "../../common/component/LandingLoading";
+import Banner from "./components/Banner";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -41,6 +40,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-container">
+      <Banner />
       <div className="landing-content">
         {productList.length > 0 &&
           productList.map((item) => <ProductCard item={item} key={item._id} />)}
