@@ -39,34 +39,37 @@ const LandingPage = () => {
     );
 
   return (
-    <div className="landing-container">
-      <Banner />
-      <div className="landing-content">
-        {productList.length > 0 &&
-          productList.map((item) => <ProductCard item={item} key={item._id} />)}
+    <div>
+      <div className="landing-container">
+        <div className="landing-content">
+          {productList.length > 0 &&
+            productList.map((item) => (
+              <ProductCard item={item} key={item._id} />
+            ))}
+        </div>
+        {productList.length === 0 && <LandingEmpty name={name} />}
+        <ReactPaginate
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={totalPageNum}
+          forcePage={page - 1}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLabel="..."
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+          className="display-center list-style-none"
+        />
       </div>
-      {productList.length === 0 && <LandingEmpty name={name} />}
-      <ReactPaginate
-        nextLabel=">"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={totalPageNum}
-        forcePage={page - 1}
-        previousLabel="<"
-        renderOnZeroPageCount={null}
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakLabel="..."
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
-        activeClassName="active"
-        className="display-center list-style-none"
-      />
     </div>
   );
 };

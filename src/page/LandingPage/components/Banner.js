@@ -10,7 +10,6 @@ function Banner() {
   const [progress, setProgress] = useState("");
 
   function nextSlide(val, isNext, isDot) {
-    console.log(val, isNext);
     let nextIdx = val;
 
     if (!isDot) {
