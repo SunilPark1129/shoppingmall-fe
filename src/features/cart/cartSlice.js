@@ -20,7 +20,7 @@ export const addToCart = createAsyncThunk(
       const response = await api.post("/cart", { productId: id, size, qty: 1 });
       dispatch(
         showToastMessage({
-          message: "카트에 아이템이 추가 됐습니다",
+          message: "Item have been added to the cart",
           status: "success",
         })
       );
@@ -56,7 +56,7 @@ export const deleteCartItem = createAsyncThunk(
       const response = await api.delete(`/cart/${id}`);
       dispatch(
         showToastMessage({
-          message: "카트에서 아이템이 삭제되었습니다",
+          message: "Items have been removed from the cart",
           status: "success",
         })
       );

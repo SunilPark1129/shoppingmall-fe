@@ -23,7 +23,7 @@ const OrderStatusCard = ({ orderItem }) => {
           <div className="status-card__content">
             <div>
               <div>
-                <strong>주문번호: {orderItem.orderNum}</strong>
+                <strong>Order number: {orderItem.orderNum}</strong>
               </div>
               <div className="text-14">{orderItem.createdAt.slice(0, 10)}</div>
               <div>
@@ -39,7 +39,7 @@ const OrderStatusCard = ({ orderItem }) => {
               <div>$ {currencyFormat(orderItem.totalPrice)}</div>
             </div>
             <div md={2} className="vertical-middle status-card__status">
-              <div className="text-align-center text-12">주문상태</div>
+              <div className="text-align-center text-12">Order status</div>
               <Badge bg={badgeBg[orderItem.status]}>{orderItem.status}</Badge>
             </div>
           </div>
@@ -73,11 +73,11 @@ const OrderStatusCard = ({ orderItem }) => {
         <button className="status-card__btn" onClick={handleOpen}>
           {hasOpen ? (
             <>
-              닫기 <FontAwesomeIcon className="search-icon" icon={faAngleUp} />
+              Close <FontAwesomeIcon className="search-icon" icon={faAngleUp} />
             </>
           ) : (
             <>
-              자세히보기{" "}
+              View Detail{" "}
               <FontAwesomeIcon className="search-icon" icon={faAngleDown} />
             </>
           )}

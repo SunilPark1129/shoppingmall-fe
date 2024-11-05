@@ -26,8 +26,8 @@ const CartPage = () => {
             ))
           ) : (
             <div className="text-align-center empty-bag">
-              <h2>카트가 비어있습니다.</h2>
-              <div>상품을 담아주세요!</div>
+              <h2>Your cart is empty</h2>
+              <div>Please add items</div>
             </div>
           )}
         </Col>

@@ -58,7 +58,7 @@ const AdminOrderPage = () => {
       {loading && <Loading clickable={true} />}
       <Container>
         <div className="mt-2 display-center mb-2">
-          <SearchBox placeholder="오더번호" field="ordernum" />
+          <SearchBox placeholder="Order number" field="ordernum" />
         </div>
 
         <OrderTable

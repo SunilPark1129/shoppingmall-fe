@@ -69,7 +69,7 @@ export const updateOrder = createAsyncThunk(
       );
       dispatch(
         showToastMessage({
-          message: `오더를 ${status}으로 변경하였습니다`,
+          message: `The order has been changed to ${status}`,
           status: "success",
         })
       );

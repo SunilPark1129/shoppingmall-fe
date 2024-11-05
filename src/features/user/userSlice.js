@@ -48,7 +48,7 @@ export const registerUser = createAsyncThunk(
 
       dispatch(
         showToastMessage({
-          message: "회원가입을 성공했습니다!",
+          message: "You have successfully registered",
           status: "success",
         })
       );

@@ -34,7 +34,10 @@ export const createProduct = createAsyncThunk(
     try {
       const response = await api.post("/product", formData);
       dispatch(
-        showToastMessage({ message: "상품 생성 완료", status: "success" })
+        showToastMessage({
+          message: "Product creation completed",
+          status: "success",
+        })
       );
       return response.data.data;
     } catch (error) {
@@ -49,7 +52,10 @@ export const deleteProduct = createAsyncThunk(
     try {
       const response = await api.delete(`/product/${id}`);
       dispatch(
-        showToastMessage({ message: "상품 삭제 완료", status: "success" })
+        showToastMessage({
+          message: "Product deletion completed",
+          status: "success",
+        })
       );
       if (page) {
         dispatch(getProductList({ page, name }));
@@ -67,7 +73,10 @@ export const editProduct = createAsyncThunk(
     try {
       const response = await api.put(`/product/${id}`, formData);
       dispatch(
-        showToastMessage({ message: "상품 변경 완료", status: "success" })
+        showToastMessage({
+          message: "Product update completed",
+          status: "success",
+        })
       );
       return response.data.data;
     } catch (error) {

@@ -245,7 +245,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
           <Form.Group className="mb-3" controlId="stock">
             <Form.Label className="mr-1">Stock</Form.Label>
             {stockError && (
-              <span className="error-message">재고를 추가해주세요</span>
+              <span className="error-message">Please add stock</span>
             )}
             <Button size="sm" onClick={addStock}>
               Add +

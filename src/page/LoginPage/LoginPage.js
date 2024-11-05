@@ -77,12 +77,12 @@ const Login = () => {
               Login
             </Button>
             <div>
-              아직 계정이 없으세요?<Link to="/register">회원가입 하기</Link>{" "}
+              Don't have an account? <Link to="/register">Sign up</Link>
             </div>
           </div>
 
           <div className="text-align-center mt-2">
-            <p>-외부 계정으로 로그인하기-</p>
+            <p>Log in with other method</p>
             <div className="display-center">
               {/* 
               1. Oauth로그인을 위해서 google api 사이트에 가입하고 클라이언트키, 시크릿키 받아오기

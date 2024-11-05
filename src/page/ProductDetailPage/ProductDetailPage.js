@@ -158,7 +158,7 @@ const ProductDetail = () => {
               className="add-button"
               onClick={addItemToCart}
             >
-              추가
+              Add to cart
             </Button>
             <div>
               SHIPPING POLICY: Shipping is available to customers at least 13
