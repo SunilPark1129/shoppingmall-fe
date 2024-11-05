@@ -548,17 +548,28 @@ body {
   }
 }
 
-footer {
+footer .wrapper {
   width: 100%;
-  padding: 2rem;
-  height: 10rem;
+  padding: 2rem 0;
+  /* height: 10rem; */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  max-width: 1800px;
+  margin: auto;
+  /* justify-content: center; */
+  /* align-items: center; */
+  gap: 1rem;
+  flex-direction: column;
 }
 
-footer > div {
-  text-align: end;
+footer div {
+  margin-left: auto;
+  /* text-align: end; */
+  /* margin-left: auto; */
+}
+
+.copyright {
+  max-width: 50rem;
+  /* margin-left: auto; */
 }
 
 @media screen and (max-width: 1400px) {
