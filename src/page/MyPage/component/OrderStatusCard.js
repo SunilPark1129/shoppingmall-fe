@@ -9,7 +9,7 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 const OrderStatusCard = ({ orderItem }) => {
   const [hasOpen, setHasOpen] = useState(false);
   const image = resizeImage(orderItem.items[0]?.productId?.image[0].url, 100);
-  console.log(orderItem);
+
   function handleOpen() {
     setHasOpen((prev) => !prev);
   }
