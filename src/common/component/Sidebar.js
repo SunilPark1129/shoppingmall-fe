@@ -41,7 +41,9 @@ const Sidebar = () => {
 
       <Navbar bg="light" expand={false} className="mobile-sidebar-toggle">
         <Container fluid>
-          <img width={80} src="/image/hm-logo.png" alt="hm-logo.png" />
+          <Link to="/">
+            <img width={80} src="/image/hm-logo.png" alt="hm-logo.png" />
+          </Link>
           <Navbar.Brand href="#"></Navbar.Brand>
           <Navbar.Toggle
             aria-controls={`offcanvasNavbar-expand`}
@@ -54,7 +56,10 @@ const Sidebar = () => {
             className="sidebar"
             show={show}
           >
-            <Offcanvas.Header closeButton></Offcanvas.Header>
+            <Offcanvas.Header
+              closeButton
+              onClick={() => setShow(false)}
+            ></Offcanvas.Header>
             <Offcanvas.Body>{NavbarContent()}</Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
