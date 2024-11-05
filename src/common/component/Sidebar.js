@@ -15,7 +15,7 @@ const Sidebar = () => {
     return (
       <div>
         <Link to="/">
-          <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
+          <img width={100} src="/image/sparklogo.png" alt="sparklogo" />
         </Link>
         <div className="sidebar-item">Admin Account</div>
         <ul className="sidebar-area">
@@ -42,7 +42,7 @@ const Sidebar = () => {
       <Navbar bg="light" expand={false} className="mobile-sidebar-toggle">
         <Container fluid>
           <Link to="/">
-            <img width={80} src="/image/hm-logo.png" alt="hm-logo.png" />
+            <img width={80} src="/image/sparklogo.png" alt="sparklogo" />
           </Link>
           <Navbar.Brand href="#"></Navbar.Brand>
           <Navbar.Toggle

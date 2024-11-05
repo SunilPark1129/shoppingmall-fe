@@ -20,13 +20,12 @@ const Navbar = ({ user }) => {
   const [showSearchBox, setShowSearchBox] = useState(false);
   const menuList = [
     "Women",
-    "Divided",
     "Men",
-    "Newborn/Baby",
-    "Kids",
-    "H&M HOME",
+    "Top",
+    "Pants",
+    "Dress",
+    "S&P HOME",
     "Sale",
-    "Sustainability",
   ];
   let [width, setWidth] = useState(0);
   const navigate = useNavigate();
@@ -141,10 +140,10 @@ const Navbar = ({ user }) => {
       <div className="nav-logo">
         <Link to="/">
           <img
-            width={100}
-            height={100}
-            src="/image/hm-logo.png"
-            alt="hm-logo.png"
+            width={200}
+            height={200}
+            src="/image/sparklogo.png"
+            alt="sparklogo"
           />
         </Link>
       </div>

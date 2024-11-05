@@ -12,7 +12,9 @@ function Footer() {
           <strong>sourced from H&M products</strong>, and no names, information,
           or images have been altered.
         </div>
-        <div>2024 Shoppingmall Demo Project - spark</div>
+        <div>
+          2024 Coding Noona Course | Demo Shoppingmall Project - Sunil Park
+        </div>
       </div>
     </footer>
   );
