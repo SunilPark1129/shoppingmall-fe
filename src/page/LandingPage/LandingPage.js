@@ -38,9 +38,11 @@ const LandingPage = () => {
       </div>
     );
 
+  console.log(page);
+
   return (
     <div>
-      {(!page || page === 1) && !name && <Banner />}
+      {Number(page) === 1 && !name && <Banner />}
       <div className="landing-container">
         <div className="landing-content">
           {productList.length > 0 &&
