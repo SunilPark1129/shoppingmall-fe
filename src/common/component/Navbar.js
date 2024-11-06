@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/user/userSlice";
 import { getCartQty } from "../../features/cart/cartSlice";
+import { getLinkLists, menList, menuList, womenList } from "./data/linksLabel";
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
 
@@ -19,31 +20,14 @@ const Navbar = ({ user }) => {
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const [curCategory, setCurCategory] = useState("");
-  const menuList = [
-    { label: "Women", to: "/?page=1&category=female" },
-    { label: "Men", to: "/?page=1&category=male" },
-    { label: "Top", to: "/?page=1&category=top" },
-    { label: "Pants", to: "/?page=1&category=pants" },
-    { label: "Dress", to: "/?page=1&category=dress" },
-    { label: "S&P HOME", to: "/" },
-    { label: "Sale", to: "/?page=1&category=sale" },
-  ];
-  const womenList = [
-    { label: "Women Top", to: "/?page=1&category=female&category=top" },
-    { label: "Women Pants", to: "/?page=1&category=female&category=pants" },
-    { label: "Women Dress", to: "/?page=1&category=female&category=dress" },
-    { label: "Women Sale", to: "/?page=1&category=female&category=sale" },
-  ];
-  const menList = [
-    { label: "Men Top", to: "/?page=1&category=male&category=top" },
-    { label: "Men Pants", to: "/?page=1&category=male&category=pants" },
-    { label: "Men Sale", to: "/?page=1&category=male&category=sale" },
-  ];
+
   let [width, setWidth] = useState(0);
+  const [links, setLinks] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const [query] = useSearchParams();
   const category = query.getAll("category");
+
   let gender = null;
   if (category.includes("male")) {
     gender = "male";
@@ -53,14 +37,20 @@ const Navbar = ({ user }) => {
 
   useEffect(() => {
     if (category.length !== 0) {
-      const temp = category.map((item) => {
+      const exchange = category.map((item) => {
         if (item === "female") return "women";
         if (item === "male") return "men";
         return item;
       });
-      setCurCategory(temp);
+
+      setCurCategory(exchange);
     } else {
       setCurCategory("");
+      setLinks(null);
+    }
+
+    if (category.length === 1) {
+      setLinks(getLinkLists(category[0]));
     }
   }, [query]);
 
@@ -202,24 +192,14 @@ const Navbar = ({ user }) => {
               );
             })}
           </ul>
-          {gender === "male" ? (
+          {links && (
             <ul className="menu menu--semi">
-              {menList.map(({ label, to }, index) => (
-                <li key={index}>
+              {links.map(({ label, to }) => (
+                <li key={label}>
                   <Link to={to}>{label}</Link>
                 </li>
               ))}
             </ul>
-          ) : (
-            gender === "female" && (
-              <ul className="menu menu--semi">
-                {womenList.map(({ label, to }, index) => (
-                  <li key={index}>
-                    <Link to={to}>{label}</Link>
-                  </li>
-                ))}
-              </ul>
-            )
           )}
         </div>
       </div>

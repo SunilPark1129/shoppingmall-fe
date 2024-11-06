@@ -46,23 +46,32 @@ body {
 .nav-menu-area__content {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 3em;
 }
 
 .nav-menu-area ul {
   margin: 0;
   padding: 0;
+  display: flex;
+  gap: 1rem;
 }
 
 .nav-menu-area li a {
   padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  margin: 0;
 }
 
 .nav-menu-area li.active a {
-  text-decoration: underline;
+  /* border: 1px solid transparent; */
+  border-bottom: 1px solid rgb(85, 85, 85);
 }
 
 .menu--semi ul {
+  justify-content: start !important;
+}
+
+.menu--semi {
   justify-content: start !important;
 }
 
