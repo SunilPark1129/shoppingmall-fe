@@ -17,7 +17,7 @@ export const bannerImages = [
     link: {
       has: true,
       label: "Shop now",
-      href: "/product/672476cb493956dfc9bdf2aa",
+      href: "/product/6729daa6e91e08883c3ce5a4",
       color: "light",
     },
     image: {
