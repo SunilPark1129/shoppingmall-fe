@@ -145,10 +145,10 @@ const cartSlice = createSlice({
         state.error = "";
         state.cartList = action.payload;
         state.cartItemCount = action.payload.length;
-        const total = action.payload.reduce(
-          (total, item) => total + item.productId.price * item.qty,
-          0
-        );
+        const total = action.payload.reduce((total, item) => {
+          const price = item.productId.price * (1 - item.productId.sale / 100);
+          return total + price * item.qty;
+        }, 0);
         state.totalPrice = Number(currencyFormat(total));
       })
       .addCase(getCartList.rejected, (state, action) => {
@@ -192,7 +192,9 @@ const cartSlice = createSlice({
           const newQty = action.payload[i].qty;
           state.cartList[i].qty = newQty;
 
-          const { price } = state.cartList[i].productId;
+          const price =
+            state.cartList[i].productId.price *
+            (1 - state.cartList[i].productId.sale / 100);
           total += price * newQty;
         }
         state.totalPrice = Number(currencyFormat(total));

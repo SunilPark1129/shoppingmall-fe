@@ -107,12 +107,11 @@
   width: 100%;
 }
 
-.status-card__desc div:nth-of-type(1) {
-  margin-bottom: auto;
-  font-weight: bold;
-  color: rgb(87, 87, 87);
+.status-card__desc__sale {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
-
 @media (max-width: 500px) {
   .status-card__item {
     flex-direction: column;

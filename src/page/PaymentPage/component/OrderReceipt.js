@@ -14,8 +14,10 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
       <ul className="receipt-list">
         {cartList.length > 0 ? (
           cartList.map((item) => {
-            const { name, price } = item.productId;
+            const { name } = item.productId;
             const { qty, _id } = item;
+            const price =
+              item.productId.price * (1 - item.productId.sale / 100);
             return (
               <li key={_id}>
                 <div className="display-flex space-between">

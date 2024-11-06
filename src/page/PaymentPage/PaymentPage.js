@@ -59,6 +59,7 @@ const PaymentPage = () => {
             price: item.productId.price,
             qty: item.qty,
             size: item.size,
+            sale: item.productId.sale,
           };
         }),
       })

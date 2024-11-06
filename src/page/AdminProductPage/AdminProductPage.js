@@ -14,6 +14,7 @@ import {
 } from "../../features/product/productSlice";
 import Loading from "../../common/component/Loading";
 import ConfirmModal from "../../common/component/ConfirmModal";
+import SaleForm from "./component/SaleForm";
 
 const AdminProductPage = () => {
   const navigate = useNavigate();
@@ -40,11 +41,14 @@ const AdminProductPage = () => {
     "Sku",
     "Name",
     "Price",
+    "Sale",
     "Stock",
     "Image",
     "Status",
     "",
   ];
+
+  const [openSaleForm, setOpenSaleForm] = useState(false);
 
   //상품리스트 가져오기 (url쿼리 맞춰서)
   useEffect(() => {
@@ -125,6 +129,7 @@ const AdminProductPage = () => {
           data={productList}
           deleteItem={deleteItem}
           openEditForm={openEditForm}
+          setOpenSaleForm={setOpenSaleForm}
         />
         <ReactPaginate
           nextLabel=">"
@@ -156,6 +161,15 @@ const AdminProductPage = () => {
         page={queryPage}
         name={queryName}
       />
+
+      {openSaleForm.open && (
+        <SaleForm
+          openSaleForm={openSaleForm}
+          setOpenSaleForm={setOpenSaleForm}
+          page={queryPage}
+          name={queryName}
+        />
+      )}
 
       {confirmOption.open && (
         <ConfirmModal

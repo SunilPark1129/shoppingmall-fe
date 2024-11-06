@@ -37,6 +37,8 @@ const CartProductCard = ({ item }) => {
     dispatch(deleteCartItem(id));
   }
 
+  const price = item.productId.price * (1 - item.productId.sale / 100);
+
   return (
     <>
       <div className="product-card-cart">
@@ -63,12 +65,25 @@ const CartProductCard = ({ item }) => {
             </div>
           </div>
 
-          <div>
-            <strong>$ {currencyFormat(item.productId.price)}</strong>
+          <div className={`${item.sale !== 0 && "sale__org-price"}`}>
+            $ <span>{currencyFormat(item.productId.price)}</span>
+            {item.productId.sale !== 0 && (
+              <div className="sale__org-price__line"></div>
+            )}
           </div>
+          {item.productId.sale !== 0 && (
+            <div className="sale__price-box">
+              <div className="sale__price__sale">
+                {item.productId.sale}% OFF
+              </div>
+              <div className="sale__price__applied">
+                $<span>{currencyFormat(price)}</span>
+              </div>
+            </div>
+          )}
           <div>Size: {item.size}</div>
           <div className="product-card-cart__total">
-            Total: $ {currencyFormat(item.productId.price * item.qty)}
+            Total: $ {currencyFormat(price * item.qty)}
           </div>
           <div>
             Quantity:

@@ -47,6 +47,10 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (selectedProduct) {
       const temp = selectedProduct.image.filter(
         (_, idx) => idx !== selectedImg
@@ -112,9 +116,29 @@ const ProductDetail = () => {
           <div className="product__content">
             <div className="product-info">
               <h1>{selectedProduct.name}</h1>
-              <div>
+              <div
+                className={`${selectedProduct.sale !== 0 && "sale__org-price"}`}
+              >
                 $<span>{currencyFormat(selectedProduct.price)}</span>
+                {selectedProduct.sale !== 0 && (
+                  <div className="sale__org-price__line"></div>
+                )}
               </div>
+              {selectedProduct.sale !== 0 && (
+                <div className="sale__price-box">
+                  <div className="sale__price__sale">
+                    {selectedProduct.sale}% OFF
+                  </div>
+                  <div className="sale__price__applied">
+                    $
+                    <span>
+                      {currencyFormat(
+                        selectedProduct.price * (1 - selectedProduct.sale / 100)
+                      )}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="line"></div>
             <div className="product-info">

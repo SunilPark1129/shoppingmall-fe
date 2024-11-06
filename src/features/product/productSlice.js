@@ -85,6 +85,24 @@ export const editProduct = createAsyncThunk(
   }
 );
 
+export const saleProduct = createAsyncThunk(
+  "products/saleProduct",
+  async ({ id, sale }, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await api.put(`/product/sale/${id}`, { sale });
+      dispatch(
+        showToastMessage({
+          message: "sale update completed",
+          status: "success",
+        })
+      );
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 // 슬라이스 생성
 const productSlice = createSlice({
   name: "products",
@@ -145,6 +163,19 @@ const productSlice = createSlice({
         state.success = true;
       })
       .addCase(editProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.success = false;
+      })
+      .addCase(saleProduct.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(saleProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        state.success = true;
+      })
+      .addCase(saleProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         state.success = false;

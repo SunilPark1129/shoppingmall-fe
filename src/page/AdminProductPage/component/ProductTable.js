@@ -6,7 +6,13 @@ import { useSelector } from "react-redux";
 import Loading from "../../../common/component/Loading";
 import { resizeImage } from "../../../utils/resizeImage";
 
-const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
+const ProductTable = ({
+  header,
+  data,
+  deleteItem,
+  openEditForm,
+  setOpenSaleForm,
+}) => {
   return (
     <div className="overflow-x">
       <Table striped bordered hover>
@@ -30,6 +36,11 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                   <th style={{ minWidth: "100px" }}>{item.name}</th>
                   <th>{currencyFormat(item.price)}</th>
                   <th>
+                    {item.sale !== 0 && (
+                      <div className="product-table__sale">{item.sale}%</div>
+                    )}
+                  </th>
+                  <th>
                     {Object.keys(item.stock).map((size, index) => (
                       <div key={index}>
                         {size}:{item.stock[size]}
@@ -40,7 +51,11 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                     <img src={image} width={100} alt="image" />
                   </th>
                   <th>{item.status}</th>
-                  <th style={{ minWidth: "100px" }}>
+                  <th
+                    style={{
+                      minWidth: "100px",
+                    }}
+                  >
                     <Button
                       size="sm"
                       variant="danger"
@@ -49,8 +64,19 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
                     >
                       -
                     </Button>
-                    <Button size="sm" onClick={() => openEditForm(item)}>
+                    <Button
+                      size="sm"
+                      onClick={() => openEditForm(item)}
+                      className="mr-1"
+                    >
                       Edit
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={() => setOpenSaleForm({ open: true, item })}
+                      variant="warning"
+                    >
+                      Sale
                     </Button>
                   </th>
                 </tr>

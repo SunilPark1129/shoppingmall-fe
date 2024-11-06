@@ -12,6 +12,9 @@ const ProductCard = ({ item }) => {
     navigate(`/product/${id}`);
   };
 
+  // 세일 값
+  const sale = currencyFormat(1 - item.sale / 100);
+
   // 이미지 최적화하기
   const image = item.image[0].url;
 
@@ -57,8 +60,19 @@ const ProductCard = ({ item }) => {
       </div>
       <div className="card__info">
         <div className="card__info__name">{item?.name}</div>
-        <div>
-          $ <span>{currencyFormat(item?.price)}</span>
+        <div className="card__info__price">
+          <div className={`${item.sale !== 0 && "sale__org-price"}`}>
+            $ <span>{currencyFormat(item?.price)}</span>
+            {item.sale !== 0 && <div className="sale__org-price__line"></div>}
+          </div>
+          {item.sale !== 0 && (
+            <div className="sale__price-box">
+              <div className="sale__price__applied">
+                $ <span>{currencyFormat(item?.price * sale)}</span>
+              </div>
+              <div className="card__info__saled-text">{item.sale}% off</div>
+            </div>
+          )}
         </div>
       </div>
     </div>

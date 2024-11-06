@@ -92,3 +92,8 @@
 .product__size__item.active {
   border: 1px solid #212529;
 }
+
+.product-info__sale-box {
+  display: flex;
+  gap: 0.5rem;
+}

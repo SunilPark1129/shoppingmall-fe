@@ -13,6 +13,7 @@ const OrderStatusCard = ({ orderItem }) => {
   function handleOpen() {
     setHasOpen((prev) => !prev);
   }
+
   return (
     <div>
       <Row className="status-card gap-2">
@@ -48,25 +49,53 @@ const OrderStatusCard = ({ orderItem }) => {
           <>
             <div className="status-card__detail">
               <div className="line"></div>
-              {orderItem.items.map(({ price, productId, qty, size }, idx) => {
-                const { image, name } = productId;
-                return (
-                  <div className="status-card__gap" key={idx}>
-                    <div className="status-card__item">
-                      <div className="status-card__img-box">
-                        <img src={resizeImage(image[0].url, 100)} alt={name} />
-                      </div>
-                      <div className="status-card__desc">
-                        <div>{name}</div>
-                        <div>Size: {size}</div>
-                        <div>Qty: {qty}</div>
-                        <div>Price: ${price}</div>
-                        <div>Total: ${currencyFormat(price * qty)}</div>
+              {orderItem.items.map(
+                ({ price, productId, qty, size, sale }, idx) => {
+                  const { image, name } = productId;
+                  const finalPrice = price * (1 - sale / 100);
+                  return (
+                    <div className="status-card__gap" key={idx}>
+                      <div className="status-card__item">
+                        <div className="status-card__img-box">
+                          <img
+                            src={resizeImage(image[0].url, 100)}
+                            alt={name}
+                          />
+                        </div>
+                        <div className="status-card__desc">
+                          <div>{name}</div>
+                          <div>Size: {size}</div>
+                          <div>Qty: {qty}</div>
+                          <div className="status-card__desc__sale">
+                            <div
+                              className={`${sale !== 0 && "sale__org-price"}`}
+                            >
+                              ${currencyFormat(finalPrice)}
+                              {sale !== 0 && (
+                                <div className="sale__org-price__line"></div>
+                              )}
+                            </div>
+                            {sale !== 0 && (
+                              <div className="sale__price-box">
+                                <div className="sale__price__sale">
+                                  {sale}% OFF
+                                </div>
+                                <div className="sale__price__applied">
+                                  $
+                                  <span>
+                                    {currencyFormat(price * (1 - sale / 100))}
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          <div>Total: ${currencyFormat(finalPrice * qty)}</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                }
+              )}
             </div>
           </>
         )}
