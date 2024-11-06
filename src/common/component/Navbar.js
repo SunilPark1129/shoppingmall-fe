@@ -26,18 +26,18 @@ const Navbar = ({ user }) => {
     { label: "Pants", to: "/?page=1&category=pants" },
     { label: "Dress", to: "/?page=1&category=dress" },
     { label: "S&P HOME", to: "/" },
-    // { label: "Sale", to: "/" },
+    { label: "Sale", to: "/?page=1&category=sale" },
   ];
   const womenList = [
     { label: "Women Top", to: "/?page=1&category=female&category=top" },
     { label: "Women Pants", to: "/?page=1&category=female&category=pants" },
     { label: "Women Dress", to: "/?page=1&category=female&category=dress" },
-    // { label: "Women Sale", to: "/" },
+    { label: "Women Sale", to: "/?page=1&category=female&category=sale" },
   ];
   const menList = [
     { label: "Men Top", to: "/?page=1&category=male&category=top" },
     { label: "Men Pants", to: "/?page=1&category=male&category=pants" },
-    // { label: "Men Sale", to: "/" },
+    { label: "Men Sale", to: "/?page=1&category=male&category=sale" },
   ];
   let [width, setWidth] = useState(0);
   const navigate = useNavigate();
