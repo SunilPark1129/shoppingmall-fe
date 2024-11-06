@@ -70,7 +70,7 @@ const OrderStatusCard = ({ orderItem }) => {
                             <div
                               className={`${sale !== 0 && "sale__org-price"}`}
                             >
-                              ${currencyFormat(finalPrice)}
+                              ${currencyFormat(price)}
                               {sale !== 0 && (
                                 <div className="sale__org-price__line"></div>
                               )}
