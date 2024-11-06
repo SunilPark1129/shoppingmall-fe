@@ -17,7 +17,7 @@ function Footer() {
             <h2>WOMEN</h2>
             <ul>
               {womenList.map(({ label, to }) => (
-                <li>
+                <li key={label}>
                   <Link to={to}>{label}</Link>
                 </li>
               ))}
@@ -27,7 +27,7 @@ function Footer() {
             <h2>MEN</h2>
             <ul>
               {menList.map(({ label, to }) => (
-                <li>
+                <li key={label}>
                   <Link to={to}>{label}</Link>
                 </li>
               ))}
@@ -37,7 +37,7 @@ function Footer() {
             <h2>TOP</h2>
             <ul>
               {topList.map(({ label, to }) => (
-                <li>
+                <li key={label}>
                   <Link to={to}>{label}</Link>
                 </li>
               ))}
@@ -47,7 +47,7 @@ function Footer() {
             <h2>PANTS</h2>
             <ul>
               {pantsList.map(({ label, to }) => (
-                <li>
+                <li key={label}>
                   <Link to={to}>{label}</Link>
                 </li>
               ))}
@@ -57,7 +57,7 @@ function Footer() {
             <h2>DRESS</h2>
             <ul>
               {dressList.map(({ label, to }) => (
-                <li>
+                <li key={label}>
                   <Link to={to}>{label}</Link>
                 </li>
               ))}

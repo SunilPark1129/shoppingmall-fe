@@ -254,8 +254,10 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, page, name }) => {
             </Button>
             <div className="mt-2">
               {stock.map((item, index) => {
+                let key = item[2];
+                if (!key) key = item[0];
                 return (
-                  <Row key={item[2]}>
+                  <Row key={key}>
                     <Col sm={4}>
                       <Form.Select
                         onChange={(event) =>
