@@ -78,6 +78,10 @@ function SaleForm({ openSaleForm, setOpenSaleForm, page, name }) {
           </button>
         </div>
       </div>
+      <div
+        className="sale-bg"
+        onClick={() => setOpenSaleForm({ open: false })}
+      ></div>
       {confirmOption.open && (
         <ConfirmModal
           setConfirmOption={setConfirmOption}
