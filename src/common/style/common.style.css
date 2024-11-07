@@ -35,7 +35,7 @@
 }
 
 .overflow-x::-webkit-scrollbar {
-  display: none;
+  /* display: none; */
 }
 
 .vh-100 {

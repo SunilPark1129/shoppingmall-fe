@@ -604,9 +604,9 @@ body {
   color: black;
 }
 
-.landing-container > ul {
+ul:has(.page-item) {
   margin: 0 !important;
-  padding: 2rem 0;
+  padding: 2rem 0 !important;
 }
 
 .skeleton__card {
@@ -809,6 +809,17 @@ footer h2 {
   color: black;
 }
 
+.overflow-x {
+  overflow-x: auto !important;
+  width: 100%;
+}
+
+.locate-center > .container {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0.5rem !important;
+}
+
 @media screen and (max-width: 1400px) {
   .landing-content {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -816,6 +827,10 @@ footer h2 {
 }
 
 @media screen and (max-width: 63rem) {
+  .locate-center > .container {
+    max-width: none;
+  }
+
   .hide {
     visibility: visible;
   }
