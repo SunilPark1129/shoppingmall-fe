@@ -820,7 +820,7 @@ footer h2 {
     visibility: visible;
   }
   .menu {
-    display: none;
+    display: none !important;
   }
 
   .nav-header {
