@@ -39,6 +39,8 @@ const CartProductCard = ({ item }) => {
 
   const price = item.productId.price * (1 - item.productId.sale / 100);
 
+  console.log(item.sale);
+
   return (
     <>
       <div className="product-card-cart">
@@ -65,7 +67,7 @@ const CartProductCard = ({ item }) => {
             </div>
           </div>
 
-          <div className={`${item.sale !== 0 && "sale__org-price"}`}>
+          <div className={`${item.productId.sale !== 0 && "sale__org-price"}`}>
             $ <span>{currencyFormat(item.productId.price)}</span>
             {item.productId.sale !== 0 && (
               <div className="sale__org-price__line"></div>
