@@ -135,6 +135,7 @@ const AdminProductPage = () => {
           nextLabel=">"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
+          marginPagesDisplayed={1}
           pageCount={totalPageNum}
           forcePage={queryPage - 1}
           previousLabel="<"

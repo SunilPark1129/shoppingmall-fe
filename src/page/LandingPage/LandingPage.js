@@ -59,6 +59,7 @@ const LandingPage = () => {
           nextLabel=">"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
+          marginPagesDisplayed={1}
           pageCount={totalPageNum}
           forcePage={page - 1}
           previousLabel="<"
