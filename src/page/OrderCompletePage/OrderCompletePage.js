@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../PaymentPage/style/paymentPage.style.css";
 import { resetStatusOrder } from "../../features/order/orderSlice";
+import Loading from "../../common/component/Loading";
 
 const OrderCompletePage = () => {
   const dispatch = useDispatch();
-  const { orderNum, error } = useSelector((state) => state.order);
+  const { orderNum, error, loading } = useSelector((state) => state.order);
   const [errorList, setErrorList] = useState([]);
 
   useEffect(() => {
@@ -23,6 +24,8 @@ const OrderCompletePage = () => {
   useEffect(() => {
     dispatch(resetStatusOrder());
   }, []);
+
+  if (loading) return <Loading />;
   if (error)
     return (
       <Container className="confirmation-page">
