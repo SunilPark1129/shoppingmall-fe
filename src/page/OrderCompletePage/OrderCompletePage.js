@@ -40,8 +40,12 @@ const OrderCompletePage = () => {
             })}
           </div>
         </div>
-        <div>Please return to the main page</div>
-        <Link to={"/"}>Go back to the main page</Link>
+        <div>
+          Please return to the main page
+          <div className="text-align-center">
+            <Link to={"/"}>Go back to the main page</Link>
+          </div>
+        </div>
       </Container>
     );
   return (
