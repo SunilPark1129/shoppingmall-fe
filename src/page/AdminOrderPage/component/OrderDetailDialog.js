@@ -61,6 +61,7 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Unit Price</th>
+                <th>Sale</th>
                 <th>Qty</th>
                 <th>Price</th>
               </tr>
@@ -72,12 +73,17 @@ const OrderDetailDialog = ({ open, handleClose }) => {
                     <td>{item._id}</td>
                     <td>{item.productId.name}</td>
                     <td>{currencyFormat(item.price)}</td>
+                    <td>{item.sale}%</td>
                     <td>{item.qty}</td>
-                    <td>{currencyFormat(item.price * item.qty)}</td>
+                    <td>
+                      {currencyFormat(
+                        item.price * (1 - item.sale / 100) * item.qty
+                      )}
+                    </td>
                   </tr>
                 ))}
               <tr>
-                <td colSpan={4}>Total:</td>
+                <td colSpan={5}>Total:</td>
                 <td>{currencyFormat(selectedOrder.totalPrice)}</td>
               </tr>
             </tbody>
