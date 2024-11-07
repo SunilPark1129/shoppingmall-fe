@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,19 +7,41 @@ import { resetStatusOrder } from "../../features/order/orderSlice";
 
 const OrderCompletePage = () => {
   const dispatch = useDispatch();
-  const { orderNum } = useSelector((state) => state.order);
+  const { orderNum, error } = useSelector((state) => state.order);
+  const [errorList, setErrorList] = useState([]);
+
+  useEffect(() => {
+    if (error) {
+      const temp = [
+        ...error.matchAll(/Insufficient stock for (.*?) in size (.*?)\./g),
+      ];
+
+      setErrorList(temp);
+    }
+  }, [error]);
+
   useEffect(() => {
     dispatch(resetStatusOrder());
   }, []);
-  console.log(orderNum);
-  if (!orderNum)
+  if (error)
     return (
       <Container className="confirmation-page">
         <h1>Order failed</h1>
-        <div>
-          Please return to the main page
-          <Link to={"/"}>Go back to the main page</Link>
+        <div className="confirmation-page__content">
+          <div>Reason:</div>
+          <div>
+            {errorList.map((item, idx) => {
+              return (
+                <div className="confirmation-page__error" key={idx}>
+                  Insufficient stock for <span>{item[1]}</span> size in{" "}
+                  <span>{item[2]}</span>.
+                </div>
+              );
+            })}
+          </div>
         </div>
+        <div>Please return to the main page</div>
+        <Link to={"/"}>Go back to the main page</Link>
       </Container>
     );
   return (

@@ -11,7 +11,6 @@ import { createOrder } from "../../features/order/orderSlice";
 const PaymentPage = () => {
   const dispatch = useDispatch();
   const { cartList, totalPrice } = useSelector((state) => state.cart);
-  const { status, orderNum } = useSelector((state) => state.order);
   const [cardValue, setCardValue] = useState({
     cvc: "",
     expiry: "",
@@ -28,13 +27,6 @@ const PaymentPage = () => {
     city: "",
     zip: "",
   });
-
-  useEffect(() => {
-    // 오더번호를 받으면 어디로 갈까?
-    if (status) {
-      navigate("/payment/success");
-    }
-  }, [status]);
 
   useEffect(() => {
     // 카트에 아이템이 없을시 페이지에서 나가기
@@ -64,6 +56,7 @@ const PaymentPage = () => {
         }),
       })
     );
+    navigate("/payment/success");
   };
 
   const handleFormChange = (event) => {
