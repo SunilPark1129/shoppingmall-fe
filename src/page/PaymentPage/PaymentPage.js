@@ -11,7 +11,7 @@ import { createOrder } from "../../features/order/orderSlice";
 const PaymentPage = () => {
   const dispatch = useDispatch();
   const { cartList, totalPrice } = useSelector((state) => state.cart);
-  const { status } = useSelector((state) => state.order);
+  const { status, orderNum } = useSelector((state) => state.order);
   const [cardValue, setCardValue] = useState({
     cvc: "",
     expiry: "",
@@ -37,7 +37,7 @@ const PaymentPage = () => {
   }, [status]);
 
   useEffect(() => {
-    // 카트에 아이템이 없을시에 (결제 후에 뒤로가기)
+    // 카트에 아이템이 없을시 페이지에서 나가기
     if (cartList.length === 0) {
       navigate("/cart");
     }

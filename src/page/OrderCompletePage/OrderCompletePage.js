@@ -11,7 +11,8 @@ const OrderCompletePage = () => {
   useEffect(() => {
     dispatch(resetStatusOrder());
   }, []);
-  if (orderNum === "")
+  console.log(orderNum);
+  if (!orderNum)
     return (
       <Container className="confirmation-page">
         <h1>Order failed</h1>
