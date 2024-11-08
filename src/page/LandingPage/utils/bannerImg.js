@@ -9,9 +9,9 @@ function imgTransform(arr, size) {
 export const bannerImages = [
   {
     id: "1",
-    heading: { text: "Newly released pants", color: "light" },
+    heading: { text: "Newly released T-shirt", color: "light" },
     paragraph: {
-      text: "Wear clean and trendy pants to look stylish",
+      text: "Wear clean and trendy T-shirt to look stylish",
       color: "light",
     },
     link: {
