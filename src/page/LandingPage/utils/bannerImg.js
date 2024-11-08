@@ -32,7 +32,7 @@ export const bannerImages = [
       sizes:
         "(max-width: 600) 600px, (max-width: 1300) 1300px, (max-width: 1920) 1920px, 3200px",
       objectFit: "cover",
-      alt: "shirt",
+      alt: "woman with T-shirt",
     },
   },
   {
@@ -57,7 +57,7 @@ export const bannerImages = [
       sizes:
         "(max-width: 600) 600px, (max-width: 1300) 1300px, (max-width: 1920) 1920px, 3200px",
       objectFit: "cover",
-      alt: "winter jacket",
+      alt: "woman sitting",
     },
   },
   {
@@ -82,7 +82,7 @@ export const bannerImages = [
       sizes:
         "(max-width: 600) 600px, (max-width: 1300) 1300px, (max-width: 1920) 1920px, 3200px",
       objectFit: "cover",
-      alt: "clothing store",
+      alt: "T-shirt",
     },
   },
 ];
