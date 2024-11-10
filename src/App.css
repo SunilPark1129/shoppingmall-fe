@@ -313,10 +313,14 @@ body {
   padding: 20px 10px;
   list-style-type: none;
 }
-.sidebar-item:hover {
+.sidebar-area .sidebar-item:hover {
+  cursor: pointer;
+}
+.sidebar-area .sidebar-item:hover {
   color: white;
   background-color: red;
   font-weight: bold;
+  cursor: pointer;
 }
 .sidebar-area {
   padding-left: 0;
