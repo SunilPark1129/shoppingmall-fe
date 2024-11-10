@@ -100,11 +100,7 @@ const Navbar = ({ user }) => {
 
         <div className="side-menu-list" id="menu-list">
           {menuList.map(({ label, to }, index) => (
-            <Link
-              to={to === "/" ? "/" : `/?page=1&category=${to}`}
-              key={index}
-              onClick={() => setWidth(0)}
-            >
+            <Link to={to} key={index} onClick={() => setWidth(0)}>
               {label}
             </Link>
           ))}
@@ -117,8 +113,8 @@ const Navbar = ({ user }) => {
       )}
       <div className="nav-header">
         <div className="display-flex">
-          <div className="burger-menu hide">
-            <FontAwesomeIcon icon={faBars} onClick={() => setWidth(250)} />
+          <div className="burger-menu hide" onClick={() => setWidth(250)}>
+            <FontAwesomeIcon icon={faBars} />
           </div>
           {!isMobile && ( // admin페이지에서 같은 search-box스타일을 쓰고있음 그래서 여기서 서치박스 안보이는것 처리를 해줌
             <div className="nav-search-box">
